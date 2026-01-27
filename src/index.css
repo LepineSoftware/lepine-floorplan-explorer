@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@import "leaflet/dist/leaflet.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased text-slate-900;
+    font-family: "Jost", sans-serif;
+    overscroll-behavior: none;
+  }
+}
+
+.bg-midnight-900 {
+  background-color: #102a43 !important;
+}
+
+/* Map Markers */
+.floorplan-base-pin {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #e2e8f0;
+  border: 2px solid #94a3b8;
+}
+
+.floorplan-base-pin::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background-color: #94a3b8;
+  border-radius: 50%;
+}
+
+.pin-active {
+  background-color: #102a43 !important;
+  border-color: #ffffff !important;
+  transform: scale(1.4);
+  z-index: 1000 !important;
+  box-shadow: 0 12px 24px -4px rgba(16, 42, 67, 0.4);
+}
+
+.pin-active::after {
+  background-color: #ffffff;
+  width: 8px;
+  height: 8px;
+}
+
+/* Animations */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Leaflet UI Customization */
+.leaflet-bar {
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.leaflet-bar a {
+  background-color: white !important;
+  color: #102a43 !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaflet-bar a:hover {
+  background-color: #102a43 !important;
+  color: white !important;
+}
