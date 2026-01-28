@@ -4,13 +4,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        # Pass build-time variables for Vite
-        - VITE_DEBUG=false
     container_name: frontend
     restart: always
     ports:
       - "1050:80"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
     environment:
       - VITE_DEBUG=false
     read_only: true
