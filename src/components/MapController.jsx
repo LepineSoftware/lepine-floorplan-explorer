@@ -27,43 +27,47 @@ export default function MapController({
       if (config.fitType === "cover") {
         /**
          * BUILDING VIEW: Static Cover Logic
-         * Calculates the zoom level required to fill the container,
-         * ensuring the image overflows rather than showing white space.
          */
         const zoomW = Math.log2(container.offsetWidth / imageWidth);
         const zoomH = Math.log2(container.offsetHeight / imageHeight);
         const coverZoom = Math.max(zoomW, zoomH);
 
-        // Center the view and lock zoom levels to keep it static
         map.setView([imageHeight / 2, imageWidth / 2], coverZoom, {
-          animate: true,
+          animate: false,
         });
         map.setMinZoom(coverZoom + config.minZoomOffset);
         map.setMaxZoom(coverZoom + config.maxZoomOffset);
       } else {
         /**
          * FLOORPLAN VIEW: Contain Logic
-         * Uses fitBounds to ensure the entire SVG/Floorplan is visible
-         * within the container on all screen sizes.
          */
         map.fitBounds(bounds, {
           padding: config.padding,
-          animate: true,
+          animate: false,
           duration: MAP_VIEW_SETTINGS.animationDuration,
         });
 
-        // Set limits based on the current calculated fit bounds
         const minZoom = map.getBoundsZoom(bounds);
         map.setMinZoom(minZoom + config.minZoomOffset);
         map.setMaxZoom(minZoom + config.maxZoomOffset);
       }
     };
 
-    // Initialize and attach listener for window resizing
+    // Initial sizing attempt
     handleSizing();
+
+    // Production/Docker Fix: Re-run after a short delay to ensure
+    // the container has reached its final CSS dimensions.
+    const timer = setTimeout(() => {
+      handleSizing();
+    }, 100);
+
     window.addEventListener("resize", handleSizing);
 
-    return () => window.removeEventListener("resize", handleSizing);
+    return () => {
+      window.removeEventListener("resize", handleSizing);
+      clearTimeout(timer);
+    };
   }, [map, mode, bounds, imageWidth, imageHeight, config]);
 
   return null;
