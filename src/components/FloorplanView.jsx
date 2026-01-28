@@ -39,9 +39,15 @@ export default function FloorplanView({
           ← Back
         </button>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center">
+        {/* FIX: Added conditional pointer-events to the wrapper. 
+          The wrapper is now 'pointer-events-none' when closed so it doesn't block the map,
+          but the toggle button remains 'pointer-events-auto' so it can still be clicked.
+        */}
+        <div
+          className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center ${isFloorMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+        >
           <div
-            className={`${UI_TRANSITIONS} mb-3 flex flex-col gap-1 bg-white p-1.5 rounded-2xl shadow-xl border border-slate-200 min-w-[160px] ${isFloorMenuOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"}`}
+            className={`${UI_TRANSITIONS} mb-3 flex flex-col gap-1 bg-white p-1.5 rounded-2xl shadow-xl border border-slate-200 min-w-[160px] ${isFloorMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
           >
             {BUILDING_CONFIG.floors.map((floor) => (
               <button
@@ -58,7 +64,7 @@ export default function FloorplanView({
           </div>
           <button
             onClick={() => setIsFloorMenuOpen(!isFloorMenuOpen)}
-            className="flex items-center gap-3 bg-white text-[#102a43] px-6 py-3 rounded-xl shadow-xl border border-slate-200 hover:bg-slate-50 transition-all"
+            className="pointer-events-auto flex items-center gap-3 bg-white text-[#102a43] px-6 py-3 rounded-xl shadow-xl border border-slate-200 hover:bg-slate-50 transition-all"
           >
             <span className="text-sm font-bold">
               {activeFloor?.name || "select floor"}

@@ -26,14 +26,18 @@ const tourIcon = L.divIcon({
   iconAnchor: [20, 20],
 });
 
+// src/components/VirtualTourPolygon.jsx
 export default function VirtualTourPolygon({ tour, onSelect }) {
   return (
     <Marker
       position={tour.position}
       icon={tourIcon}
+      // Add a higher zIndexOffset to ensure buttons are above unit polygons
+      zIndexOffset={1000}
       eventHandlers={{
         click: (e) => {
           L.DomEvent.stopPropagation(e);
+          console.log("Tour clicked:", tour.label); // Add this to debug
           if (typeof onSelect === "function") onSelect(tour);
         },
       }}
