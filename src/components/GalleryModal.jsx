@@ -42,7 +42,7 @@ export default function GalleryModal({ isOpen, images, onClose }) {
               <div className="flex items-center justify-center w-full h-full p-4 md:p-12">
                 <img
                   src={src}
-                  className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                  className="max-w-full max-h-full object-contain rounded-lg shadow-xl"
                   alt={`Gallery image ${i + 1}`}
                   /* Removed pointer-events-none to ensure swiping works on the image itself */
                 />

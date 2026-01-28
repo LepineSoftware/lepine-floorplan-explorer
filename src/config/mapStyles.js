@@ -5,19 +5,19 @@ export const BACKGROUND_FILL = "#f8fafc";
 export const POLYGON_STYLES = {
   inactive: {
     fillColor: SECONDARY_FILL,
-    fillOpacity: 0.4,
+    fillOpacity: 0.6,
     color: PRIMARY_FILL,
-    weight: 1,
+    weight: 0,
   },
   hover: {
     fillColor: PRIMARY_FILL,
-    fillOpacity: 0.6,
-    weight: 1,
+    fillOpacity: 0.8,
+    weight: 0,
   },
   active: {
     fillColor: PRIMARY_FILL,
-    fillOpacity: 0.8,
+    fillOpacity: 0.9,
     color: PRIMARY_FILL,
-    weight: 1,
+    weight: 0,
   },
 };

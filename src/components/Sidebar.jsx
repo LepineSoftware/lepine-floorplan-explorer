@@ -20,7 +20,7 @@ export default function Sidebar({
   return (
     <div
       id="sidebar"
-      className="flex-1 w-full flex flex-col bg-white shadow-2xl z-20 md:w-[420px] md:flex-none md:h-full md:border-l border-slate-100 min-h-0 relative"
+      className="flex-1 w-full flex flex-col bg-white shadow-xl z-20 md:w-[420px] md:flex-none md:h-full md:border-l border-slate-100 min-h-0 relative"
     >
       <div className="hidden md:block px-8 py-6 border-b border-slate-100 bg-white/95 backdrop-blur-sm sticky top-0 z-30">
         <h2 className="text-xl font-bold text-slate-900 tracking-tight">
@@ -63,7 +63,7 @@ export default function Sidebar({
                     {unit.title}
                   </h3>
                   <span
-                    className={`inline-flex items-center px-2 py-1 md:px-3 md:py-1.5 rounded-md text-[10px] md:text-[11px] font-bold tracking-wide uppercase shadow-sm border ${unit.available ? availableClass : leasedClass}`}
+                    className={`inline-flex items-center px-2 py-1 md:px-3 md:py-1.5 rounded-md text-[10px] md:text-[11px] font-bold tracking-wide uppercase border ${unit.available ? availableClass : leasedClass}`}
                   >
                     {unit.available ? "Available" : "Leased"}
                   </span>
@@ -74,7 +74,7 @@ export default function Sidebar({
               <div className="grid grid-cols-[100px_1fr] md:flex md:flex-col gap-3 md:gap-6 mb-6">
                 <div
                   onClick={onOpenGallery}
-                  className="w-[100px] h-[100px] md:w-full md:h-auto md:aspect-video relative group overflow-hidden rounded-xl md:rounded-2xl shadow-soft cursor-pointer bg-slate-100 shrink-0"
+                  className="w-[100px] h-[100px] md:w-full md:h-auto md:aspect-video relative group overflow-hidden rounded-xl md:rounded-2xl shadow-xl cursor-pointer bg-slate-100 shrink-0"
                 >
                   <img
                     src={unit.img}
@@ -101,7 +101,7 @@ export default function Sidebar({
 
                 {/* Statistics: Flex shrink enabled to prevent overflow */}
                 <div className="flex flex-col gap-2 md:grid md:grid-cols-2 md:gap-3 shrink min-w-0">
-                  <div className="px-3 py-2 md:py-4 rounded-xl border border-slate-100 bg-white shadow-sm flex flex-col justify-center shrink min-w-0">
+                  <div className="px-3 py-2 md:py-4 rounded-xl border border-slate-100 bg-white flex flex-col justify-center shrink min-w-0">
                     <p className="text-[10px] text-slate-400 font-bold uppercase mb-0.5">
                       Area
                     </p>
@@ -110,7 +110,7 @@ export default function Sidebar({
                       <span className="text-[10px] font-normal">sqft</span>
                     </p>
                   </div>
-                  <div className="px-3 py-2 md:py-4 rounded-xl border border-slate-100 bg-white shadow-sm flex flex-col justify-center shrink min-w-0">
+                  <div className="px-3 py-2 md:py-4 rounded-xl border border-slate-100 bg-white flex flex-col justify-center shrink min-w-0">
                     <p className="text-[10px] text-slate-400 font-bold uppercase mb-0.5">
                       Layout
                     </p>
@@ -129,7 +129,7 @@ export default function Sidebar({
                 <a
                   href="/assets/floorplan.pdf"
                   target="_blank"
-                  className="w-full flex items-center justify-center gap-2 bg-[#102a43] hover:bg-slate-800 text-white font-semibold py-4 rounded-full transition-all duration-300 shadow-md transform hover:-translate-y-0.5 active:translate-y-0"
+                  className="w-full flex items-center justify-center gap-2 bg-[#102a43] hover:bg-slate-800 text-white font-semibold py-4 rounded-full transition-all duration-300 shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <Download size={18} /> Download Floorplan
                 </a>
