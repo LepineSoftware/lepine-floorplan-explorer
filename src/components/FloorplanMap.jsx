@@ -8,7 +8,10 @@ import VirtualTourPolygon from "./VirtualTourPolygon";
 import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
 import "leaflet/dist/leaflet.css";
 
-// Helper for the Recenter button in Floorplan mode
+/**
+ * RecenterControl provides a UI button to snap the map back to the full
+ * floorplan bounds.
+ */
 function RecenterControl({ bounds, padding }) {
   const map = useMap();
   return (
@@ -54,17 +57,19 @@ export default function FloorplanMap({
     [0, 0],
     [config.height, config.width],
   ];
+
+  // Retrieve configuration based on whether we are in 'building' or 'floorplan' mode
   const viewSettings = MAP_VIEW_SETTINGS[mode];
 
   return (
     <div className="h-full w-full relative overflow-hidden">
       <MapContainer
-        key={mode} // Forces fresh initialization when switching modes
+        key={mode} // Crucial: Destroys and recreates the map when switching modes
         crs={L.CRS.Simple}
         className="h-full w-full"
         style={{ background: MAP_VIEW_SETTINGS.defaultBackground }}
         attributionControl={false}
-        // Interaction settings pulled from config
+        // Interaction settings driven by config/viewConfigs.js
         zoomControl={viewSettings.zoomControl}
         dragging={viewSettings.dragging}
         scrollWheelZoom={viewSettings.scrollWheelZoom}
@@ -80,15 +85,18 @@ export default function FloorplanMap({
           imageHeight={config.height}
         />
 
+        {/* UI Controls specific to interactive mode */}
         {mode === "floorplan" && (
           <RecenterControl bounds={bounds} padding={viewSettings.padding} />
         )}
 
+        {/* Layer 1: Floor selections for Building mode */}
         {mode === "building" &&
           items.map((floor) => (
             <FloorPolygon key={floor.id} floor={floor} onSelect={onSelect} />
           ))}
 
+        {/* Layer 2: Units and Virtual Tours for Floorplan mode */}
         {mode === "floorplan" && (
           <>
             {items.map((unit) => (
@@ -103,7 +111,7 @@ export default function FloorplanMap({
               <VirtualTourPolygon
                 key={tour.id}
                 tour={tour}
-                onSelect={onTourSelect}
+                onSelect={onTourSelect} // Triggers iframe popup via parent state
               />
             ))}
           </>

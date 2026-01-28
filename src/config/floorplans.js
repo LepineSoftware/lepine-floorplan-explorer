@@ -20,16 +20,10 @@ export const BUILDING_CONFIG = {
       config: { width: 2273, height: 1146, url: "/assets/floorplan.svg" },
       vrTours: [
         {
-          id: "vt1-1",
-          label: "Suite 210",
-          position: [560, 1200],
+          id: "vt110",
+          label: "Suite 110",
+          position: [435, 1250],
           url: "https://www.solutioneers.dev/tours/1804/210/index.html",
-        },
-        {
-          id: "vt1-2",
-          label: "Suite 216",
-          position: [400, 1000],
-          url: "https://www.solutioneers.dev/tours/1804/216/index.html",
         },
       ],
       units: [
@@ -91,10 +85,10 @@ export const BUILDING_CONFIG = {
             [598, 1832],
           ],
           description: "Efficient layout with high-end finishes.",
-          img: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=600&q=90",
+          img: "https://images.unsplash.com/photo-1494109842364-78817add7ffb?auto=format&fit=crop&w=600&q=90",
           gallery: [
             "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
-            "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
+            "https://images.unsplash.com/photo-1494109842364-78817add7ffb",
           ],
         },
       ],
@@ -111,16 +105,10 @@ export const BUILDING_CONFIG = {
       config: { width: 2273, height: 1146, url: "/assets/floorplan.svg" },
       vrTours: [
         {
-          id: "vt2-1",
-          label: "Suite 219",
-          position: [560, 1100],
-          url: "https://www.solutioneers.dev/tours/1804/219/index.html",
-        },
-        {
-          id: "vt2-2",
-          label: "Suite 222",
-          position: [400, 1300],
-          url: "https://www.solutioneers.dev/tours/1804/222/index.html",
+          id: "vt210",
+          label: "Suite 210",
+          position: [435, 1250],
+          url: "https://www.solutioneers.dev/tours/1804/210/index.html",
         },
       ],
       units: [
@@ -180,16 +168,10 @@ export const BUILDING_CONFIG = {
       config: { width: 2273, height: 1146, url: "/assets/floorplan.svg" },
       vrTours: [
         {
-          id: "vt3-1",
-          label: "Suite 226",
-          position: [560, 950],
-          url: "https://www.solutioneers.dev/tours/1804/226/index.html",
-        },
-        {
-          id: "vt3-2",
-          label: "1 Bedroom Suite",
-          position: [400, 1500],
-          url: "https://www.solutioneers.dev/tours/1814/1_bdrm_suite/index.html",
+          id: "vt310",
+          label: "Suite 310",
+          position: [435, 1250],
+          url: "https://www.solutioneers.dev/tours/1804/210/index.html",
         },
       ],
       units: [
@@ -228,9 +210,9 @@ export const BUILDING_CONFIG = {
       config: { width: 2273, height: 1146, url: "/assets/floorplan.svg" },
       vrTours: [
         {
-          id: "vt4-1",
-          label: "Suite 210",
-          position: [560, 1150],
+          id: "vt410",
+          label: "Suite 410",
+          position: [435, 1250],
           url: "https://www.solutioneers.dev/tours/1804/210/index.html",
         },
       ],
@@ -273,10 +255,10 @@ export const BUILDING_CONFIG = {
       config: { width: 2273, height: 1146, url: "/assets/floorplan.svg" },
       vrTours: [
         {
-          id: "vt5-1",
-          label: "Suite 219",
-          position: [560, 1250],
-          url: "https://www.solutioneers.dev/tours/1804/219/index.html",
+          id: "vt510",
+          label: "Suite 510",
+          position: [435, 1250],
+          url: "https://www.solutioneers.dev/tours/1804/210/index.html",
         },
       ],
       units: [
@@ -295,10 +277,10 @@ export const BUILDING_CONFIG = {
             [598, 1832],
           ],
           description: "Efficient layout with high-end finishes.",
-          img: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=600&q=90",
+          img: "https://images.unsplash.com/photo-1494109842364-78817add7ffb?auto=format&fit=crop&w=600&q=90",
           gallery: [
             "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
-            "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
+            "https://images.unsplash.com/photo-1494109842364-78817add7ffb",
           ],
         },
       ],
@@ -319,10 +301,10 @@ export const BUILDING_CONFIG = {
       config: { width: 2273, height: 1146, url: "/assets/floorplan.svg" },
       vrTours: [
         {
-          id: "vt6-1",
-          label: "Suite 222",
-          position: [560, 1050],
-          url: "https://www.solutioneers.dev/tours/1804/222/index.html",
+          id: "vt610",
+          label: "Suite 610",
+          position: [435, 1250],
+          url: "https://www.solutioneers.dev/tours/1804/210/index.html",
         },
       ],
       units: [
@@ -368,10 +350,10 @@ export const BUILDING_CONFIG = {
       config: { width: 2273, height: 1146, url: "/assets/floorplan.svg" },
       vrTours: [
         {
-          id: "vt7-1",
-          label: "1 Bedroom Suite",
-          position: [560, 1100],
-          url: "https://www.solutioneers.dev/tours/1814/1_bdrm_suite/index.html",
+          id: "vt710",
+          label: "Suite 710",
+          position: [435, 1250],
+          url: "https://www.solutioneers.dev/tours/1804/210/index.html",
         },
       ],
       units: [
