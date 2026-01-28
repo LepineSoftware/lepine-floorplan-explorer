@@ -1,4 +1,3 @@
-// src/components/FloorplanMap.jsx
 import React, { useEffect } from "react";
 import {
   MapContainer,
@@ -6,8 +5,11 @@ import {
   Polygon,
   ZoomControl,
   useMap,
+  Tooltip,
 } from "react-leaflet";
 import L from "leaflet";
+import "@geoman-io/leaflet-geoman-free";
+import "@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css";
 import { POLYGON_STYLES } from "../config/mapStyles";
 import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
 import "leaflet/dist/leaflet.css";
@@ -18,35 +20,73 @@ function MapController({ bounds, imageWidth, imageHeight }) {
   useEffect(() => {
     if (!map || !bounds) return;
 
-    const calculatePerfectFit = () => {
-      // Force Leaflet to recognize the current container size
+    // Standard "Perfect Fit" Logic
+    const fitImage = () => {
       map.invalidateSize();
-
       const container = map.getContainer();
-      const containerWidth = container.offsetWidth;
-      const containerHeight = container.offsetHeight;
-
-      // Calculate required zoom levels for both dimensions (Log2 for Leaflet zoom levels)
-      const zoomW = Math.log2(containerWidth / imageWidth);
-      const zoomH = Math.log2(containerHeight / imageHeight);
-
-      // Use Math.min to 'Contain' (show full image) or Math.max to 'Cover' (fill screen)
+      const zoomW = Math.log2(container.offsetWidth / imageWidth);
+      const zoomH = Math.log2(container.offsetHeight / imageHeight);
       const perfectZoom = Math.min(zoomW, zoomH);
 
-      // Re-center and snap to the calculated zoom level
       map.setView([imageHeight / 2, imageWidth / 2], perfectZoom, {
         animate: true,
         duration: MAP_VIEW_SETTINGS.animationDuration,
       });
     };
 
-    calculatePerfectFit();
-    window.addEventListener("resize", calculatePerfectFit);
-    return () => window.removeEventListener("resize", calculatePerfectFit);
+    // Geoman Debugging Logic
+    if (MAP_VIEW_SETTINGS.debug) {
+      map.pm.addControls({
+        position: "topright",
+        drawMarker: false,
+        drawCircle: false,
+        drawPolyline: false,
+        drawRectangle: true,
+        drawPolygon: true,
+        editMode: true,
+        dragMode: true,
+        removalMode: true,
+      });
+
+      const logPolygon = (e) => {
+        const layer = e.layer || e.target;
+        if (layer instanceof L.Polygon) {
+          // getLatLngs() returns nested arrays for polygons
+          const latlngs = layer.getLatLngs()[0];
+          const coords = latlngs.map(
+            (ll) => `[${Math.round(ll.lat)}, ${Math.round(ll.lng)}]`,
+          );
+
+          console.log("Updated Polygon Coordinates:");
+          console.log(`polygon: [\n  ${coords.join(",\n  ")}\n],`);
+        }
+      };
+
+      // Listen for creation and modifications
+      map.on("pm:create", (e) => {
+        logPolygon(e);
+        // Ensure new layers also log changes when edited or dragged
+        e.layer.on("pm:edit", logPolygon);
+        e.layer.on("pm:dragend", logPolygon);
+      });
+
+      // Hook into existing polygons rendered from your config
+      map.eachLayer((layer) => {
+        if (layer instanceof L.Polygon) {
+          layer.on("pm:edit", logPolygon);
+          layer.on("pm:dragend", logPolygon);
+        }
+      });
+    }
+
+    fitImage();
+    window.addEventListener("resize", fitImage);
+    return () => window.removeEventListener("resize", fitImage);
   }, [map, bounds, imageWidth, imageHeight]);
 
   return null;
 }
+
 export default function FloorplanMap({
   mode,
   config,
@@ -62,7 +102,7 @@ export default function FloorplanMap({
   return (
     <MapContainer
       crs={L.CRS.Simple}
-      minZoom={-5} // Crucial for scaling down high-res assets on smaller screens
+      minZoom={-5}
       maxZoom={2}
       attributionControl={false}
       zoomControl={false}
@@ -72,7 +112,6 @@ export default function FloorplanMap({
       <ZoomControl position="topleft" />
       <ImageOverlay url={config.url} bounds={bounds} />
 
-      {/* Pass the specific config dimensions (SVG or JPG) to the controller */}
       <MapController
         bounds={bounds}
         imageWidth={config.width}
@@ -98,7 +137,11 @@ export default function FloorplanMap({
               mouseover: (e) => e.target.setStyle(POLYGON_STYLES.hover),
               mouseout: (e) => e.target.setStyle(baseStyle),
             }}
-          />
+          >
+            <Tooltip permanent direction="center" className="polygon-label">
+              {item.name}
+            </Tooltip>
+          </Polygon>
         );
       })}
     </MapContainer>

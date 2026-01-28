@@ -110,3 +110,18 @@ body,
   background-color: #102a43 !important;
   color: white !important;
 }
+
+.polygon-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: white !important;
+  font-weight: 700;
+  font-size: 14px;
+    font-family: "Jost", sans-serif;
+  /* Helps readability over images */
+}
+
+.polygon-label::before {
+  display: none !important;
+}

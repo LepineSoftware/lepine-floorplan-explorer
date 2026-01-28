@@ -3,6 +3,7 @@
 import { BACKGROUND_FILL } from "./mapStyles";
 
 export const MAP_VIEW_SETTINGS = {
+  debug: true, // Toggle this to enable/disable editing tools
   fitBoundsPadding: [0, 0],
   animationDuration: 0.5,
   maxBoundsViscosity: 1.0,
