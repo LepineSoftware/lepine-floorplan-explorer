@@ -15,12 +15,9 @@ export function BuildingProvider({ children }) {
   const [activeFloorId, setActiveFloorId] = useState(null);
   const [activeUnitId, setActiveUnitId] = useState(null);
 
-  // App states for views and features
   const [viewMode, setViewMode] = useState("map");
   const [gridTab, setGridTab] = useState("all");
   const [favorites, setFavorites] = useState([]);
-
-  // FIXED: Centralized Tour State
   const [activeTour, setActiveTour] = useState(null);
 
   const [filters, setFilters] = useState({
@@ -38,10 +35,7 @@ export function BuildingProvider({ children }) {
       })
       .then((json) => {
         setData(json);
-        // Initialize with the first floor by default
-        if (json.config.floors?.length > 0) {
-          setActiveFloorId(json.config.floors[0].id);
-        }
+        // Removed auto-select floor here to ensure BuildingView is the initial screen
         setLoading(false);
       })
       .catch((err) => {
@@ -92,6 +86,7 @@ export function BuildingProvider({ children }) {
   const selectFloor = (id) => {
     const floor = floors.find((f) => f.id === id);
     setActiveFloorId(id);
+    // Always select the first unit of the floor by default
     if (floor && floor.units.length > 0) {
       setActiveUnitId(floor.units[0].id);
     }
@@ -131,7 +126,6 @@ export function BuildingProvider({ children }) {
       setActiveFloorId(null);
       setActiveUnitId(null);
     },
-    // FIXED: Expose Tour state and setter
     activeTour,
     setActiveTour,
   };

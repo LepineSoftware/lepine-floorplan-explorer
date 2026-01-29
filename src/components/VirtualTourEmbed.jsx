@@ -1,12 +1,15 @@
+// src/components/VirtualTourEmbed.jsx
 import React from "react";
 import { X } from "lucide-react";
 
 export default function VirtualTourEmbed({ isOpen, url, label, onClose }) {
-  if (!isOpen || !url) return null;
+  // Removed strict conditional return to allow transition to play smoothly
+  // We only block if there is no URL at all.
+  if (!url) return null;
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] bg-[#0f172a]/95 backdrop-blur-md flex flex-col items-center justify-center transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+      className={`fixed inset-0 z-[9999] bg-[#0f172a]/95 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
     >
       <button
         onClick={onClose}
@@ -15,15 +18,19 @@ export default function VirtualTourEmbed({ isOpen, url, label, onClose }) {
         <X size={24} />
       </button>
 
-      <div className="w-full h-full flex flex-col p-4 md:p-12">
+      <div
+        className={`w-full h-full flex flex-col p-4 md:p-12 transition-transform duration-500 ${isOpen ? "scale-100" : "scale-95"}`}
+      >
         <div className="w-full h-full bg-black rounded-xl overflow-hidden shadow-2xl relative">
-          <iframe
-            src={url}
-            className="w-full h-full border-0"
-            allow="xr-spatial-tracking; gyroscope; acceleration; fullscreen"
-            allowFullScreen
-            title={label || "Virtual Tour"}
-          />
+          {isOpen && (
+            <iframe
+              src={url}
+              className="w-full h-full border-0"
+              allow="xr-spatial-tracking; gyroscope; acceleration; fullscreen"
+              allowFullScreen
+              title={label || "Virtual Tour"}
+            />
+          )}
         </div>
       </div>
 
