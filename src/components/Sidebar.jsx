@@ -19,8 +19,16 @@ export default function Sidebar({
 }) {
   const { data } = useBuilding();
 
-  const availableClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
-  const leasedClass = "bg-rose-50 text-rose-700 border-rose-100";
+  // Unified status styling for the new enumeration schema
+  const statusStyles = {
+    Available: "bg-emerald-50 text-emerald-700 border-emerald-100",
+    Leased: "bg-rose-50 text-rose-700 border-rose-100",
+    "On Hold": "bg-amber-50 text-amber-700 border-amber-100",
+  };
+
+  const currentStatusClass =
+    statusStyles[unit?.status] || statusStyles["Available"];
+  const hasGallery = unit?.gallery && unit.gallery.length > 0;
 
   return (
     <div className="flex-1 w-full flex flex-col bg-white shadow-xl z-20 md:w-[420px] md:flex-none md:h-full md:border-l border-slate-100 min-h-0 relative">
@@ -42,40 +50,46 @@ export default function Sidebar({
         ) : (
           <div className="animate-fade-in flex flex-col h-full">
             <div className="flex-1 p-4 md:p-8">
-              {/* Unit Title & Status */}
+              {/* Unit Title & Status Pill */}
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-bold text-slate-900">
                   {unit.title}
                 </h3>
                 <span
-                  className={`px-3 py-1.5 rounded-md text-[11px] font-bold uppercase border ${unit.available ? availableClass : leasedClass}`}
+                  className={`px-3 py-1.5 rounded-md text-[11px] font-bold uppercase border ${currentStatusClass}`}
                 >
-                  {unit.available ? "Available" : "Leased"}
+                  {unit.status}
                 </span>
               </div>
 
-              {/* Gallery Trigger Image */}
+              {/* Gallery Trigger Image Section */}
               <div
-                onClick={onOpenGallery}
-                className="cursor-pointer mb-6 group relative rounded-2xl overflow-hidden shadow-lg aspect-video"
+                onClick={hasGallery ? onOpenGallery : undefined}
+                className={`mb-6 relative rounded-2xl overflow-hidden shadow-lg aspect-video ${hasGallery ? "cursor-pointer group" : ""}`}
               >
                 <img
-                  src={unit.img}
+                  src={unit.image}
                   alt={unit.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                {/* Restored Gallery Icon and Text Overlay */}
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 duration-300">
-                  <div className="flex flex-col items-center text-white gap-2">
-                    <ImageIcon size={32} />
-                    <span className="text-xs font-bold uppercase tracking-wider">
-                      View Gallery
-                    </span>
-                  </div>
-                </div>
+
+                {hasGallery && (
+                  <>
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/40 transition-colors duration-300" />
+
+                    {/* Bottom Left Badge */}
+                    <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/20">
+                      <ImageIcon size={14} />
+                      <span className="text-[10px] font-bold uppercase tracking-wider">
+                        View Gallery
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
 
-              {/* Unit Specs */}
+              {/* Unit Specs Grid */}
               <div className="grid grid-cols-2 gap-3 mb-6">
                 <div className="p-4 rounded-xl border border-slate-100 bg-slate-50/50">
                   <p className="text-[10px] text-slate-400 font-bold uppercase">
@@ -90,7 +104,7 @@ export default function Sidebar({
                     Layout
                   </p>
                   <p className="text-lg font-bold text-slate-800">
-                    {unit.beds}bd / {unit.baths}ba
+                    {unit.numOfBeds}bd / {unit.numOfBaths}ba
                   </p>
                 </div>
               </div>
@@ -99,17 +113,18 @@ export default function Sidebar({
                 {unit.description}
               </p>
 
-              {/* Fixed Download Button */}
+              {/* Dynamic Download Button */}
               <a
-                href="/assets/floorplan.pdf"
+                href={unit.pdf || "/assets/floorplan.pdf"}
                 target="_blank"
+                rel="noreferrer"
                 className="w-full flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold py-4 rounded-full hover:bg-[#1b3a5a] transition-colors shadow-lg shadow-[#102a43]/20"
               >
                 <Download size={18} /> Download Floorplan
               </a>
             </div>
 
-            {/* Footer Navigation */}
+            {/* Sticky Footer Navigation */}
             <div className="flex items-center justify-between px-8 py-6 border-t border-slate-50 bg-white sticky bottom-0">
               <button
                 onClick={onPrev}

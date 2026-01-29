@@ -31,67 +31,109 @@
         "units": [
           {
             "id": 101,
+            "unitId": "101",
             "title": "Unit 101",
             "type": "Corner Suite",
-            "available": true,
+            "model": "The Gatineau",
             "sqft": 1136,
-            "beds": 3,
-            "baths": 2,
+            "price": 2850,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": false,
+            "officeDen": true,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+              "https://images.unsplash.com/photo-1522770179533-24471fcdba45"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": null,
+            "status": "Available",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": false,
+            "isFeatured": true,
             "polygon": [
               [577, 181],
               [844, 181],
               [844, 405],
               [577, 405]
             ],
-            "description": "Premium corner unit on the 1st floor.",
-            "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=90",
-            "gallery": [
-              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
-              "https://images.unsplash.com/photo-1484154218962-a197022b5858",
-              "https://images.unsplash.com/photo-1522770179533-24471fcdba45"
-            ]
+            "description": "Premium corner unit on the 1st floor."
           },
           {
             "id": 102,
+            "unitId": "102",
             "title": "Unit 102",
             "type": "Standard Suite",
-            "available": false,
+            "model": "The Ottawa",
             "sqft": 950,
-            "beds": 2,
-            "baths": 1,
+            "price": 2400,
+            "numOfBeds": 2,
+            "numOfBaths": 1,
+            "balcony": true,
+            "tub": true,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": false,
+            "walkInCloset": true,
+            "barrierFree": true,
+            "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": null,
+            "status": "Leased",
+            "builtIns": false,
+            "juliet": true,
+            "modelSuite": false,
+            "isFeatured": false,
             "polygon": [
               [292, 652],
               [546, 652],
               [546, 883],
               [292, 883]
             ],
-            "description": "Modern open-concept living space.",
-            "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=90",
-            "gallery": [
-              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
-              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
-            ]
+            "description": "Modern open-concept living space."
           },
           {
             "id": 106,
+            "unitId": "106",
             "title": "Unit 106",
             "type": "Studio",
-            "available": true,
+            "model": "The Rideau",
             "sqft": 650,
-            "beds": 1,
-            "baths": 1,
+            "price": 1850,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "balcony": false,
+            "tub": false,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": false,
+            "walkInCloset": false,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80",
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": "2026-02-15T12:00:00Z",
+            "status": "On Hold",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": true,
+            "isFeatured": false,
             "polygon": [
               [598, 1526],
               [846, 1526],
               [846, 1832],
               [598, 1832]
             ],
-            "description": "Efficient layout with high-end finishes.",
-            "img": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=90",
-            "gallery": [
-              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
-              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
-            ]
+            "description": "Efficient layout with high-end finishes."
           }
         ]
       },
@@ -120,45 +162,75 @@
         "units": [
           {
             "id": 201,
+            "unitId": "201",
             "title": "Unit 201",
             "type": "Corner Suite",
-            "available": true,
+            "model": "The Gatineau",
             "sqft": 1136,
-            "beds": 3,
-            "baths": 2,
+            "price": 2900,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": true,
+            "officeDen": true,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6",
+              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": null,
+            "status": "Available",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": false,
+            "isFeatured": false,
             "polygon": [
               [577, 181],
               [844, 181],
               [844, 405],
               [577, 405]
             ],
-            "description": "Premium corner unit on the 2nd floor.",
-            "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=90",
-            "gallery": [
-              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
-              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6"
-            ]
+            "description": "Premium corner unit on the 2nd floor."
           },
           {
             "id": 202,
+            "unitId": "202",
             "title": "Unit 202",
             "type": "Standard Suite",
-            "available": true,
+            "model": "The Ottawa",
             "sqft": 950,
-            "beds": 2,
-            "baths": 1,
+            "price": 2450,
+            "numOfBeds": 2,
+            "numOfBaths": 1,
+            "balcony": true,
+            "tub": true,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": false,
+            "walkInCloset": true,
+            "barrierFree": true,
+            "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=800&q=80",
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": null,
+            "status": "Available",
+            "builtIns": false,
+            "juliet": true,
+            "modelSuite": false,
+            "isFeatured": false,
             "polygon": [
               [292, 652],
               [546, 652],
               [546, 883],
               [292, 883]
             ],
-            "description": "Modern open-concept living space.",
-            "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=90",
-            "gallery": [
-              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
-              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
-            ]
+            "description": "Modern open-concept living space."
           }
         ]
       },
@@ -187,24 +259,41 @@
         "units": [
           {
             "id": 301,
+            "unitId": "301",
             "title": "Unit 301",
             "type": "Corner Suite",
-            "available": true,
+            "model": "The Gatineau",
             "sqft": 1136,
-            "beds": 3,
-            "baths": 2,
+            "price": 2950,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": false,
+            "officeDen": true,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1501183007986-d0d080b147f9",
+              "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": null,
+            "status": "Available",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": false,
+            "isFeatured": true,
             "polygon": [
               [577, 181],
               [844, 181],
               [844, 405],
               [577, 405]
             ],
-            "description": "Premium corner unit on the 3rd floor.",
-            "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=90",
-            "gallery": [
-              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
-              "https://images.unsplash.com/photo-1484154218962-a197022b5858"
-            ]
+            "description": "Premium corner unit on the 3rd floor."
           }
         ]
       },
@@ -233,24 +322,37 @@
         "units": [
           {
             "id": 402,
+            "unitId": "402",
             "title": "Unit 402",
             "type": "Standard Suite",
-            "available": true,
+            "model": "The Ottawa",
             "sqft": 950,
-            "beds": 2,
-            "baths": 1,
+            "price": 2550,
+            "numOfBeds": 2,
+            "numOfBaths": 1,
+            "balcony": true,
+            "tub": true,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": false,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": null,
+            "status": "Available",
+            "builtIns": false,
+            "juliet": true,
+            "modelSuite": false,
+            "isFeatured": false,
             "polygon": [
               [292, 652],
               [546, 652],
               [546, 883],
               [292, 883]
             ],
-            "description": "Modern open-concept living space.",
-            "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=90",
-            "gallery": [
-              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
-              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
-            ]
+            "description": "Modern open-concept living space."
           }
         ]
       },
@@ -282,24 +384,37 @@
         "units": [
           {
             "id": 506,
+            "unitId": "506",
             "title": "Unit 506",
             "type": "Studio",
-            "available": false,
+            "model": "The Rideau",
             "sqft": 650,
-            "beds": 1,
-            "baths": 1,
+            "price": 1950,
+            "numOfBeds": 1,
+            "numOfBaths": 1,
+            "balcony": false,
+            "tub": true,
+            "pantry": false,
+            "terrace": false,
+            "officeDen": false,
+            "walkInCloset": false,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=800&q=80",
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": null,
+            "status": "Leased",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": false,
+            "isFeatured": false,
             "polygon": [
               [598, 1526],
               [846, 1526],
               [846, 1832],
               [598, 1832]
             ],
-            "description": "Efficient layout with high-end finishes.",
-            "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=90",
-            "gallery": [
-              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
-              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
-            ]
+            "description": "Efficient layout with high-end finishes."
           }
         ]
       },
@@ -332,24 +447,41 @@
         "units": [
           {
             "id": 601,
+            "unitId": "601",
             "title": "Unit 601",
             "type": "Corner Suite",
-            "available": true,
+            "model": "The Gatineau",
             "sqft": 1136,
-            "beds": 3,
-            "baths": 2,
+            "price": 3100,
+            "numOfBeds": 3,
+            "numOfBaths": 2,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": true,
+            "officeDen": true,
+            "walkInCloset": true,
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+            "gallery": [
+              "https://images.unsplash.com/photo-1502672033835-71e9925813db",
+              "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e"
+            ],
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": null,
+            "status": "Available",
+            "builtIns": true,
+            "juliet": false,
+            "modelSuite": false,
+            "isFeatured": true,
             "polygon": [
               [577, 181],
               [844, 181],
               [844, 405],
               [577, 405]
             ],
-            "description": "Premium corner unit on the 6th floor.",
-            "img": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=90",
-            "gallery": [
-              "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
-              "https://images.unsplash.com/photo-1484154218962-a197022b5858"
-            ]
+            "description": "Premium corner unit on the 6th floor."
           }
         ]
       },
@@ -385,24 +517,37 @@
         "units": [
           {
             "id": 702,
+            "unitId": "702",
             "title": "Unit 702",
             "type": "Standard Suite",
-            "available": false,
+            "model": "The Ottawa",
             "sqft": 950,
-            "beds": 2,
-            "baths": 1,
+            "price": 3200,
+            "numOfBeds": 2,
+            "numOfBaths": 1,
+            "balcony": true,
+            "tub": true,
+            "pantry": true,
+            "terrace": true,
+            "officeDen": false,
+            "walkInCloset": true,
+            "barrierFree": true,
+            "image": "https://images.unsplash.com/photo-1522770179533-24471fcdba45?auto=format&fit=crop&w=800&q=80",
+            "pdf": "/assets/floorplan.pdf",
+            "property": "Residential",
+            "onHoldExpires": null,
+            "status": "Leased",
+            "builtIns": true,
+            "juliet": true,
+            "modelSuite": false,
+            "isFeatured": false,
             "polygon": [
               [292, 652],
               [546, 652],
               [546, 883],
               [292, 883]
             ],
-            "description": "Modern open-concept living space with top-floor views.",
-            "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=90",
-            "gallery": [
-              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
-              "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd"
-            ]
+            "description": "Modern open-concept living space with top-floor views."
           }
         ]
       }
