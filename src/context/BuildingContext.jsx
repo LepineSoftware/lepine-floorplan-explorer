@@ -15,19 +15,39 @@ export function BuildingProvider({ children }) {
   const [activeFloorId, setActiveFloorId] = useState(null);
   const [activeUnitId, setActiveUnitId] = useState(null);
 
+  // App states for views and features
   const [viewMode, setViewMode] = useState("map");
   const [gridTab, setGridTab] = useState("all");
   const [favorites, setFavorites] = useState([]);
-  const [activeTour, setActiveTour] = useState(null); // Centralized Tour State
+
+  // FIXED: Centralized Tour State
+  const [activeTour, setActiveTour] = useState(null);
+
+  const [filters, setFilters] = useState({
+    beds: "All",
+    baths: "All",
+    status: "All",
+    features: [],
+  });
 
   useEffect(() => {
     fetch("/data/building.json")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load building data");
+        return res.json();
+      })
       .then((json) => {
         setData(json);
+        // Initialize with the first floor by default
+        if (json.config.floors?.length > 0) {
+          setActiveFloorId(json.config.floors[0].id);
+        }
         setLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   }, []);
 
   const floors = useMemo(() => data?.config?.floors || [], [data]);
@@ -36,13 +56,39 @@ export function BuildingProvider({ children }) {
     return floors.flatMap((floor) =>
       floor.units.map((unit) => ({
         ...unit,
-        floorId: floor.id,
         floorName: floor.name,
+        floorId: floor.id,
       })),
     );
   }, [floors]);
 
-  // Updated selectFloor to pick the first unit by default
+  const activeFloor = useMemo(
+    () => floors.find((f) => f.id === activeFloorId) || null,
+    [floors, activeFloorId],
+  );
+  const activeUnit = useMemo(
+    () => allUnits.find((u) => u.id === activeUnitId) || null,
+    [allUnits, activeUnitId],
+  );
+
+  const filteredUnits = useMemo(() => {
+    const baseSet =
+      gridTab === "favorites"
+        ? allUnits.filter((u) => favorites.includes(u.id))
+        : allUnits;
+
+    return baseSet.filter((unit) => {
+      const matchBeds =
+        filters.beds === "All" || unit.numOfBeds === parseInt(filters.beds);
+      const matchBaths =
+        filters.baths === "All" || unit.numOfBaths === parseInt(filters.baths);
+      const matchStatus =
+        filters.status === "All" || unit.status === filters.status;
+      const matchFeatures = filters.features.every((f) => unit[f] === true);
+      return matchBeds && matchBaths && matchStatus && matchFeatures;
+    });
+  }, [allUnits, filters, favorites, gridTab]);
+
   const selectFloor = (id) => {
     const floor = floors.find((f) => f.id === id);
     setActiveFloorId(id);
@@ -60,46 +106,32 @@ export function BuildingProvider({ children }) {
     }
   };
 
-  const activeFloor = useMemo(
-    () => floors.find((f) => f.id === activeFloorId) || null,
-    [floors, activeFloorId],
-  );
-  const activeUnit = useMemo(
-    () => allUnits.find((u) => u.id === activeUnitId) || null,
-    [allUnits, activeUnitId],
-  );
-
-  // Global Filtering Logic
-  const filteredUnits = useMemo(() => {
-    const baseSet =
-      gridTab === "favorites"
-        ? allUnits.filter((u) => favorites.includes(u.id))
-        : allUnits;
-    return baseSet; // Add filter logic here as needed
-  }, [allUnits, favorites, gridTab]);
-
   const value = {
     data,
     loading,
     activeFloor,
     activeUnit,
+    allUnits,
+    filteredUnits,
+    floors,
+    favorites,
+    gridTab,
+    viewMode,
+    filters,
+    setFilters,
+    setGridTab,
+    setViewMode,
     selectFloor,
     selectUnit: handleUnitSelect,
-    goBackToBuilding: () => {
-      setActiveFloorId(null);
-      setActiveUnitId(null);
-    },
-    floors,
-    viewMode,
-    setViewMode,
-    gridTab,
-    setGridTab,
-    favorites,
     toggleFavorite: (id) =>
       setFavorites((prev) =>
         prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id],
       ),
-    filteredUnits,
+    goBackToBuilding: () => {
+      setActiveFloorId(null);
+      setActiveUnitId(null);
+    },
+    // FIXED: Expose Tour state and setter
     activeTour,
     setActiveTour,
   };
@@ -111,4 +143,9 @@ export function BuildingProvider({ children }) {
   );
 }
 
-export const useBuilding = () => useContext(BuildingContext);
+export const useBuilding = () => {
+  const context = useContext(BuildingContext);
+  if (!context)
+    throw new Error("useBuilding must be used within a BuildingProvider");
+  return context;
+};
