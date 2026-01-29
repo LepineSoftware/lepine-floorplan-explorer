@@ -1,5 +1,5 @@
 // src/components/FloorplanView.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   ChevronUp,
   Map as MapIcon,
@@ -37,14 +37,32 @@ export default function FloorplanView() {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
+  // Track if a unit has been manually selected by the user
+  const hasManuallySelected = useRef(false);
+
+  // Reset the manual selection flag when the floor changes
+  useEffect(() => {
+    hasManuallySelected.current = false;
+    setIsMobileSidebarOpen(false);
+  }, [activeFloor?.id]);
+
   // Sync mobile sidebar state with unit selection changes
   useEffect(() => {
-    if (activeUnit && window.innerWidth < 768) {
+    // Only open the sidebar if a user has actually clicked a unit
+    if (hasManuallySelected.current && activeUnit && window.innerWidth < 768) {
       setIsMobileSidebarOpen(true);
     }
   }, [activeUnit]);
 
   if (!activeFloor) return null;
+
+  const handleUnitSelect = (unitId) => {
+    hasManuallySelected.current = true;
+    selectUnit(unitId);
+    if (window.innerWidth < 768) {
+      setIsMobileSidebarOpen(true);
+    }
+  };
 
   return (
     <div className="flex flex-col md:flex-row h-screen w-full overflow-hidden bg-slate-50 font-['Jost']">
@@ -107,23 +125,21 @@ export default function FloorplanView() {
                 units={activeFloor.units}
                 vrTours={activeFloor.vrTours || []}
                 activeUnitId={activeUnit?.id}
-                onSelect={(unit) => {
-                  selectUnit(unit.id);
-                  // Explicitly open popup on polygon click for mobile
-                  if (window.innerWidth < 768) {
-                    setIsMobileSidebarOpen(true);
-                  }
-                }}
+                onSelect={(unit) => handleUnitSelect(unit.id)}
                 onTourSelect={setActiveTour}
               />
             ) : (
               <div className="p-4 md:p-8">
-                <UnitGrid />
+                {/* Note: UnitGrid internal logic calls selectUnit from context.
+                  You may need to pass handleUnitSelect to it if clicking 
+                  list items still triggers the auto-popup incorrectly.
+                */}
+                <UnitGrid onSelectUnit={handleUnitSelect} />
               </div>
             )}
           </div>
 
-          {/* Floating Info Button for Mobile Map (Manual Trigger) */}
+          {/* Floating Info Button for Mobile Map */}
           {viewMode === "map" && activeUnit && (
             <button
               onClick={() => setIsMobileSidebarOpen(true)}

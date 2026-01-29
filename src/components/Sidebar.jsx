@@ -195,6 +195,7 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
       </div>
 
       {/* Mobile Bottom Sheet Popup with Drag Handle */}
+      {/* Sidebar is collapsed on mobile load via the isOpen prop check */}
       <div
         className={`md:hidden fixed inset-0 z-[2000] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
           isOpen
@@ -214,7 +215,7 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Drag Handle Area */}
+          {/* Drag Handle Area - allows dragging down to collapse */}
           <div
             className="w-full py-4 cursor-grab active:cursor-grabbing"
             onTouchStart={handleTouchStart}
