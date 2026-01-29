@@ -1,6 +1,7 @@
 // src/components/Sidebar.jsx
 import React from "react";
 import {
+  Heart,
   Download,
   Image as ImageIcon,
   Maximize,
@@ -19,21 +20,14 @@ import {
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 
-export default function Sidebar({ unit, onOpenGallery }) {
-  const { data } = useBuilding();
+export default function Sidebar({ onOpenGallery }) {
+  const { activeUnit, favorites, toggleFavorite } = useBuilding();
 
-  // Color mapping for the status enumeration
-  const statusStyles = {
-    Available: "bg-emerald-50 text-emerald-700 border-emerald-100",
-    Leased: "bg-rose-50 text-rose-700 border-rose-100",
-    "On Hold": "bg-amber-50 text-amber-700 border-amber-100",
-  };
+  if (!activeUnit) return null;
 
-  const currentStatusClass =
-    statusStyles[unit?.status] || statusStyles["Available"];
-  const hasGallery = unit?.gallery && unit.gallery.length > 0;
+  const isFav = favorites.includes(activeUnit.id);
+  const hasGallery = activeUnit.gallery && activeUnit.gallery.length > 0;
 
-  // Icon mapping for boolean and special attributes (Price removed)
   const attributeIcons = {
     sqft: { label: "sqft", icon: Maximize },
     numOfBeds: { label: "Beds", icon: Bed },
@@ -51,125 +45,96 @@ export default function Sidebar({ unit, onOpenGallery }) {
   };
 
   return (
-    <div className="flex-1 w-full flex flex-col bg-white shadow-xl z-20 md:w-[420px] md:flex-none md:h-full md:border-l border-slate-100 min-h-0 relative">
-      <div className="flex-1 overflow-y-auto no-scrollbar">
-        {!unit ? (
-          <div className="h-full flex flex-col items-center justify-center text-slate-400 py-12">
-            <p className="text-sm font-medium">Select a unit on the map</p>
+    <div className="flex-1 w-full flex flex-col bg-white shadow-xl z-20 md:w-[420px] md:flex-none md:h-full md:border-l border-slate-100 min-h-0 relative animate-fade-in">
+      <div className="flex-1 overflow-y-auto no-scrollbar p-8">
+        <div className="flex items-start justify-between mb-6">
+          <div>
+            <h3 className="text-2xl font-bold text-slate-900 leading-tight">
+              {activeUnit.title}
+            </h3>
+            <p className="text-xs text-slate-400 font-medium uppercase tracking-widest">
+              {activeUnit.model}
+            </p>
           </div>
-        ) : (
-          <div className="animate-fade-in flex flex-col h-full">
-            <div className="flex-1 p-4 md:p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-slate-900 leading-tight">
-                    {unit.title}
-                  </h3>
-                  <p className="text-xs text-slate-400 font-medium">
-                    {unit.model} — {unit.type}
-                  </p>
-                </div>
-                <span
-                  className={`px-3 py-1.5 rounded-md text-[11px] font-bold uppercase border ${currentStatusClass}`}
-                >
-                  {unit.status}
-                </span>
-              </div>
+          <button
+            onClick={() => toggleFavorite(activeUnit.id)}
+            className={`p-2 rounded-full transition-colors ${isFav ? "text-rose-500 bg-rose-50" : "text-slate-300 hover:bg-slate-50"}`}
+          >
+            <Heart size={22} fill={isFav ? "currentColor" : "none"} />
+          </button>
+        </div>
 
-              {/* Gallery Trigger Image */}
-              <div
-                onClick={hasGallery ? onOpenGallery : undefined}
-                className={`mb-8 relative rounded-2xl overflow-hidden shadow-lg aspect-video bg-slate-100 ${hasGallery ? "cursor-pointer group" : ""}`}
-              >
-                <img
-                  src={unit.image}
-                  alt={unit.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                {hasGallery && (
-                  <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 transition-all duration-300">
-                    <ImageIcon size={14} />
-                    <span className="text-[10px] font-bold uppercase tracking-wider">
-                      View Gallery
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* Dynamic Attribute Section */}
-              <div className="space-y-6 mb-8">
-                {/* Core Specs List */}
-                <div className="flex flex-wrap justify-between gap-4">
-                  {[
-                    { key: "sqft", val: unit.sqft },
-                    { key: "numOfBeds", val: unit.numOfBeds },
-                    { key: "numOfBaths", val: unit.numOfBaths },
-                  ].map((spec) => {
-                    const Config = attributeIcons[spec.key];
-                    if (!spec.val) return null;
-                    return (
-                      <div key={spec.key} className="flex items-center gap-2">
-                        <div className="p-2 bg-slate-50 rounded-lg text-slate-400">
-                          <Config.icon size={16} />
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-slate-900 leading-none">
-                            {spec.val}
-                          </p>
-                          <p className="text-[10px] text-slate-400 font-bold uppercase mt-1">
-                            {Config.label}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="h-px bg-slate-100 w-full" />
-
-                {/* Boolean Features List */}
-                <div className="grid grid-cols-2 gap-y-4">
-                  {Object.entries(attributeIcons)
-                    .filter(
-                      ([key]) =>
-                        typeof unit[key] === "boolean" && unit[key] === true,
-                    )
-                    .map(([key, config]) => (
-                      <div
-                        key={key}
-                        className="flex items-center gap-2 text-slate-600"
-                      >
-                        <config.icon size={14} className="text-[#102a43]" />
-                        <span className="text-xs font-medium">
-                          {config.label}
-                        </span>
-                      </div>
-                    ))}
-                </div>
-
-                <div className="h-px bg-slate-100 w-full" />
-
-                <div>
-                  <p className="text-[10px] text-slate-400 font-bold uppercase mb-2 tracking-widest">
-                    Description
-                  </p>
-                  <p className="text-sm text-slate-500 leading-relaxed">
-                    {unit.description}
-                  </p>
-                </div>
-              </div>
-
-              <a
-                href={unit.pdf || "/assets/floorplan.pdf"}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold py-4 rounded-full hover:bg-[#1b3a5a] transition-colors shadow-lg shadow-[#102a43]/20"
-              >
-                <Download size={18} /> Download Floorplan
-              </a>
+        <div
+          onClick={hasGallery ? onOpenGallery : undefined}
+          className={`mb-8 relative rounded-2xl overflow-hidden shadow-lg aspect-video ${hasGallery ? "cursor-pointer group" : ""}`}
+        >
+          <img
+            src={activeUnit.image}
+            alt={activeUnit.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          {hasGallery && (
+            <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+              <ImageIcon size={14} />
+              <span className="text-[10px] font-bold uppercase tracking-wider">
+                View Gallery
+              </span>
             </div>
+          )}
+        </div>
+
+        <div className="space-y-6 mb-8">
+          <div className="flex flex-wrap justify-between gap-4">
+            {["sqft", "numOfBeds", "numOfBaths"].map((key) => {
+              const Config = attributeIcons[key];
+              return (
+                <div key={key} className="flex items-center gap-2">
+                  <div className="p-2 bg-slate-50 rounded-lg text-slate-400">
+                    <Config.icon size={16} />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-slate-900 leading-none">
+                      {activeUnit[key]}
+                    </p>
+                    <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest">
+                      {Config.label}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        )}
+          <div className="h-px bg-slate-100 w-full" />
+          <div className="grid grid-cols-2 gap-y-4">
+            {Object.entries(attributeIcons)
+              .filter(
+                ([key]) =>
+                  typeof activeUnit[key] === "boolean" && activeUnit[key],
+              )
+              .map(([key, config]) => (
+                <div
+                  key={key}
+                  className="flex items-center gap-2 text-slate-600"
+                >
+                  <config.icon size={14} className="text-[#102a43]" />
+                  <span className="text-xs font-medium">{config.label}</span>
+                </div>
+              ))}
+          </div>
+          <div className="h-px bg-slate-100 w-full" />
+          <p className="text-sm text-slate-500 leading-relaxed italic">
+            "{activeUnit.description}"
+          </p>
+        </div>
+
+        <a
+          href={activeUnit.pdf}
+          target="_blank"
+          rel="noreferrer"
+          className="w-full flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold py-4 rounded-full hover:bg-[#1b3a5a] shadow-lg transition-all"
+        >
+          <Download size={18} /> Download Floorplan
+        </a>
       </div>
     </div>
   );
