@@ -122,16 +122,6 @@ export default function FloorplanView() {
             )}
           </div>
 
-          {/* Desktop Toggle UI is inside Sidebar.jsx, but Mobile trigger is here */}
-          {viewMode === "map" && activeUnit && (
-            <button
-              onClick={() => setIsMobileSidebarOpen(true)}
-              className="lg:hidden absolute top-4 right-4 z-[1000] bg-white text-[#102a43] p-3 rounded-full shadow-2xl border border-slate-100"
-            >
-              <Info size={20} />
-            </button>
-          )}
-
           {/* Floor Selector */}
           {viewMode === "map" && (
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center pointer-events-none w-full px-4">
