@@ -19,7 +19,6 @@ export default function FloorplanView() {
   const {
     activeFloor,
     activeUnit,
-    selectFloor,
     selectUnit,
     viewMode,
     setViewMode,
@@ -27,22 +26,28 @@ export default function FloorplanView() {
     setGridTab,
     favorites,
     floors,
+    selectFloor,
     goBackToBuilding,
     activeTour,
     setActiveTour,
   } = useBuilding();
+
   const [isFloorMenuOpen, setIsFloorMenuOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
 
   useEffect(() => {
     setIsMobileSidebarOpen(false);
   }, [activeFloor?.id]);
+
   if (!activeFloor) return null;
 
   const handleUnitSelect = useCallback(
     (unitId) => {
       selectUnit(unitId);
+      // Re-activate sidebar on selection
+      setIsDesktopSidebarOpen(true);
       if (window.innerWidth < 1024) setIsMobileSidebarOpen(true);
     },
     [selectUnit],
@@ -51,6 +56,7 @@ export default function FloorplanView() {
   return (
     <div className="flex flex-col lg:flex-row h-screen w-full overflow-hidden bg-slate-50 font-['Jost']">
       <div className="flex-1 relative flex flex-col min-w-0 h-full">
+        {/* Top Header */}
         <div className="z-[1001] bg-white border-b border-slate-200 p-4 shrink-0">
           <div className="flex items-center justify-between gap-4">
             <button
@@ -95,7 +101,9 @@ export default function FloorplanView() {
             </div>
           </div>
         </div>
+
         {viewMode === "grid" && <UnitFilters />}
+
         <div className="flex-1 relative overflow-hidden flex flex-col min-h-0">
           <div className="flex-1 relative overflow-y-auto no-scrollbar">
             {viewMode === "map" ? (
@@ -113,6 +121,8 @@ export default function FloorplanView() {
               </div>
             )}
           </div>
+
+          {/* Desktop Toggle UI is inside Sidebar.jsx, but Mobile trigger is here */}
           {viewMode === "map" && activeUnit && (
             <button
               onClick={() => setIsMobileSidebarOpen(true)}
@@ -121,6 +131,8 @@ export default function FloorplanView() {
               <Info size={20} />
             </button>
           )}
+
+          {/* Floor Selector */}
           {viewMode === "map" && (
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center pointer-events-none w-full px-4">
               <div
@@ -153,17 +165,22 @@ export default function FloorplanView() {
           )}
         </div>
       </div>
+
       <Sidebar
         onOpenGallery={() => setIsGalleryOpen(true)}
         isOpen={isMobileSidebarOpen}
         onClose={() => setIsMobileSidebarOpen(false)}
+        isDesktopOpen={isDesktopSidebarOpen}
+        onToggleDesktop={() => setIsDesktopSidebarOpen(!isDesktopSidebarOpen)}
       />
+
       <VirtualTourEmbed
         isOpen={!!activeTour}
         url={activeTour?.url}
         label={activeTour?.label}
         onClose={() => setActiveTour(null)}
       />
+
       <GalleryModal
         isOpen={isGalleryOpen}
         images={activeUnit?.gallery}

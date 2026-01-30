@@ -18,13 +18,22 @@ import {
   Sparkles,
   Info,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 
-export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
+export default function Sidebar({
+  onOpenGallery,
+  isOpen,
+  onClose,
+  isDesktopOpen,
+  onToggleDesktop,
+}) {
   const { activeUnit, favorites, toggleFavorite } = useBuilding();
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isPulsing, setIsPulsing] = useState(false);
   const startY = useRef(0);
 
   const attributeIcons = {
@@ -41,6 +50,14 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
     builtIns: { label: "Built-ins", icon: Hammer },
     juliet: { label: "Juliet Balcony", icon: Wind },
     modelSuite: { label: "Model Suite", icon: Sparkles },
+  };
+
+  const handleFavoriteClick = () => {
+    if (!favorites.includes(activeUnit.id)) {
+      setIsPulsing(true);
+      setTimeout(() => setIsPulsing(false), 500);
+    }
+    toggleFavorite(activeUnit.id);
   };
 
   const handleTouchStart = (e) => {
@@ -72,8 +89,10 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
             </div>
             <div className="flex items-center gap-2">
               <button
-                onClick={() => toggleFavorite(activeUnit.id)}
-                className={`p-2 rounded-full transition-colors ${favorites.includes(activeUnit.id) ? "text-rose-500 bg-rose-50" : "text-slate-300 hover:bg-slate-50"}`}
+                onClick={handleFavoriteClick}
+                className={`p-2 rounded-full transition-all ${
+                  isPulsing ? "animate-fav-pulse bg-rose-50" : ""
+                } ${favorites.includes(activeUnit.id) ? "text-rose-500 bg-rose-50" : "text-slate-300 hover:bg-slate-50"}`}
               >
                 <Heart
                   size={22}
@@ -171,9 +190,26 @@ export default function Sidebar({ onOpenGallery, isOpen, onClose }) {
 
   return (
     <>
-      <div className="hidden lg:flex flex-col w-[420px] bg-white border-l border-slate-100 h-full shadow-xl z-20 overflow-hidden">
-        <Content />
+      {/* Desktop Sidebar */}
+      <div
+        className={`hidden lg:flex flex-col bg-white border-l border-slate-100 h-full shadow-xl z-20 overflow-hidden transition-all duration-500 relative ${isDesktopOpen ? "w-[420px]" : "w-0 border-l-0"}`}
+      >
+        <button
+          onClick={onToggleDesktop}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full bg-white border border-slate-200 p-2 rounded-l-xl shadow-md text-[#102a43] hover:bg-slate-50 z-30"
+        >
+          {isDesktopOpen ? (
+            <ChevronRight size={20} />
+          ) : (
+            <ChevronLeft size={20} />
+          )}
+        </button>
+        <div className="min-w-[420px] h-full flex flex-col">
+          <Content />
+        </div>
       </div>
+
+      {/* Mobile Sidebar */}
       <div
         className={`lg:hidden fixed inset-0 z-[2000] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
         onClick={onClose}

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { useBuilding } from "../context/BuildingContext";
@@ -16,7 +16,19 @@ const attributeIcons = {
 
 const UnitCard = memo(
   ({ unit, isActive, isFav, toggleFavorite, onSelectUnit }) => {
+    const [isPulsing, setIsPulsing] = useState(false);
+
     if (!unit) return null;
+
+    const handleFavorite = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!isFav) {
+        setIsPulsing(true);
+        setTimeout(() => setIsPulsing(false), 500);
+      }
+      toggleFavorite(unit.id);
+    };
 
     return (
       <div
@@ -34,12 +46,10 @@ const UnitCard = memo(
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleFavorite(unit.id);
-            }}
+            onClick={handleFavorite}
             className={`absolute top-4 right-4 p-2.5 rounded-full backdrop-blur-md transition-all ${
+              isPulsing ? "animate-fav-pulse" : ""
+            } ${
               isFav
                 ? "bg-rose-500 text-white"
                 : "bg-white/80 text-slate-400 hover:text-rose-500"
@@ -90,13 +100,17 @@ const UnitCard = memo(
 );
 
 export default function UnitGrid({ onSelectUnit }) {
-  const { filteredUnits, activeUnit, favorites, toggleFavorite } =
+  const { filteredUnits, activeUnit, favorites, toggleFavorite, gridTab } =
     useBuilding();
 
   if (filteredUnits.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-slate-400">
-        <p className="text-lg font-medium">No units match your filters</p>
+      <div className="flex flex-col items-center justify-center py-40 text-slate-400">
+        <p className="text-lg font-medium">
+          {gridTab === "favorites"
+            ? "You have not selected any favourites"
+            : "No units match your filters"}
+        </p>
       </div>
     );
   }
@@ -138,7 +152,7 @@ export default function UnitGrid({ onSelectUnit }) {
         </Swiper>
       </div>
 
-      <div className="hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+      <div className="hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 4xl:grid-cols-5 gap-6 lg:gap-8">
         {filteredUnits.map((unit) => (
           <UnitCard
             key={unit.id}
