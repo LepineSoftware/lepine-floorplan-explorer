@@ -7,7 +7,7 @@ export default function UnitFilters() {
   const { filters, setFilters, allUnits } = useBuilding();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Compute the minimum and maximum square footage directly from building.json data
+  // Compute local limits for the slider constraints
   const unitSqfts = allUnits.map((u) => u.sqft || 0);
   const minSqftLimit = unitSqfts.length > 0 ? Math.min(...unitSqfts) : 0;
   const maxSqftLimit = unitSqfts.length > 0 ? Math.max(...unitSqfts) : 5000;
@@ -46,9 +46,9 @@ export default function UnitFilters() {
   ];
 
   return (
-    <div className="bg-white border-b border-slate-200 shrink-0">
-      {/* Mobile Toggle Header */}
-      <div className="md:hidden flex items-center justify-between p-4">
+    <div className="bg-white border-b border-slate-200 shrink-0 relative z-[1001]">
+      {/* Toggle Header */}
+      <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-2 text-[#102a43]">
           <Filter size={18} />
           <span className="text-sm font-bold">Filters</span>
@@ -56,28 +56,28 @@ export default function UnitFilters() {
         <div className="flex items-center gap-2">
           <button
             onClick={resetFilters}
-            className="p-2 text-slate-400 hover:text-rose-500"
+            className="p-2 text-slate-400 hover:text-rose-500 transition-colors"
           >
             <RotateCcw size={18} />
           </button>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="p-2 bg-slate-100 rounded-lg text-slate-600"
+            className="p-2 bg-slate-100 rounded-lg text-slate-600 hover:bg-slate-200 transition-all"
           >
             {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </button>
         </div>
       </div>
 
-      {/* Collapsible Content */}
+      {/* Overlay Filter Panel */}
       <div
         className={`${
           isExpanded
-            ? "max-h-[600px] opacity-100 pb-6"
-            : "max-h-0 opacity-0 md:max-h-none md:opacity-100"
-        } overflow-y-auto transition-all duration-300 ease-in-out px-4 md:p-6 no-scrollbar`}
+            ? "max-h-[600px] opacity-100 pb-8 border-b border-slate-200 shadow-2xl"
+            : "max-h-0 opacity-0 pointer-events-none"
+        } absolute top-full left-0 w-full z-[1002] bg-white overflow-y-auto transition-all duration-300 ease-in-out px-4 md:px-8 no-scrollbar`}
       >
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 pt-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:flex-wrap items-end gap-6 md:gap-8">
             <div className="flex flex-col gap-1.5 min-w-[120px]">
               <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
@@ -125,8 +125,7 @@ export default function UnitFilters() {
                   Square Footage
                 </label>
                 <span className="text-[10px] font-bold text-[#102a43]">
-                  {filters.minSqft || minSqftLimit} -{" "}
-                  {filters.maxSqft || maxSqftLimit} sqft
+                  {filters.minSqft} - {filters.maxSqft} sqft
                 </span>
               </div>
               <input
@@ -149,6 +148,7 @@ export default function UnitFilters() {
             </button>
           </div>
 
+          {/* Amenities & Features */}
           <div className="space-y-3 pt-6 border-t border-slate-100">
             <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
               Amenities & Features

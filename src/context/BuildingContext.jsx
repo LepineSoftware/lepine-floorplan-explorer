@@ -26,7 +26,7 @@ export function BuildingProvider({ children }) {
     status: "All",
     features: [],
     minSqft: 0,
-    maxSqft: 5000, // Initial high bound
+    maxSqft: 0, // Start at 0 to trigger automatic initialization
   });
 
   useEffect(() => {
@@ -37,7 +37,6 @@ export function BuildingProvider({ children }) {
       })
       .then((json) => {
         setData(json);
-        // FIX: Removed initial floor selection to default to BuildingView
         setLoading(false);
       })
       .catch((err) => {
@@ -57,6 +56,20 @@ export function BuildingProvider({ children }) {
       })),
     );
   }, [floors]);
+
+  // Sync filter bounds with data limits once units are loaded
+  useEffect(() => {
+    if (allUnits.length > 0 && filters.maxSqft === 0) {
+      const sqfts = allUnits.map((u) => u.sqft || 0);
+      const min = Math.min(...sqfts);
+      const max = Math.max(...sqfts);
+      setFilters((prev) => ({
+        ...prev,
+        minSqft: min,
+        maxSqft: max,
+      }));
+    }
+  }, [allUnits, filters.maxSqft]);
 
   const activeFloor = useMemo(
     () => floors.find((f) => f.id === activeFloorId) || null,
@@ -94,7 +107,6 @@ export function BuildingProvider({ children }) {
   const selectFloor = (id) => {
     const floor = floors.find((f) => f.id === id);
     setActiveFloorId(id);
-    // FIX: Default to the first unit of the floor for persistent sidebar
     if (floor && floor.units.length > 0) {
       setActiveUnitId(floor.units[0].id);
     }
