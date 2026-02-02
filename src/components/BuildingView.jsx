@@ -1,10 +1,10 @@
-// src/components/BuildingView.jsx
 import React from "react";
 import { useBuilding } from "../context/BuildingContext";
 import BuildingMap from "./BuildingMap";
 
 export default function BuildingView() {
-  const { data, selectFloor } = useBuilding();
+  // Use 'floors' and 'data' directly from context
+  const { data, floors, selectFloor } = useBuilding();
 
   return (
     <div className="h-full w-full relative">
@@ -20,7 +20,7 @@ export default function BuildingView() {
 
       <BuildingMap
         config={data.config}
-        floors={data.config.floors}
+        floors={floors} // Using the memoized floors array
         onSelect={(floor) => selectFloor(floor.id)}
       />
     </div>

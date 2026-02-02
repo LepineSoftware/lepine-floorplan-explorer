@@ -12,6 +12,7 @@ const BuildingContext = createContext();
 export function BuildingProvider({ children }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // Added error state
   const [activeFloorId, setActiveFloorId] = useState(null);
   const [activeUnitId, setActiveUnitId] = useState(null);
 
@@ -37,10 +38,23 @@ export function BuildingProvider({ children }) {
       })
       .then((json) => {
         setData(json);
+
+        // Initialize filters immediately to avoid double render cycle
+        const allUnits = json.config.floors.flatMap((f) => f.units);
+        if (allUnits.length > 0) {
+          const sqfts = allUnits.map((u) => u.sqft || 0);
+          setFilters((prev) => ({
+            ...prev,
+            minSqft: Math.min(...sqfts),
+            maxSqft: Math.max(...sqfts),
+          }));
+        }
+
         setLoading(false);
       })
       .catch((err) => {
         console.error(err);
+        setError(err.message); // Capture error for the UI
         setLoading(false);
       });
   }, []);
@@ -56,19 +70,6 @@ export function BuildingProvider({ children }) {
       })),
     );
   }, [floors]);
-
-  useEffect(() => {
-    if (allUnits.length > 0 && filters.maxSqft === 0) {
-      const sqfts = allUnits.map((u) => u.sqft || 0);
-      const min = Math.min(...sqfts);
-      const max = Math.max(...sqfts);
-      setFilters((prev) => ({
-        ...prev,
-        minSqft: min,
-        maxSqft: max,
-      }));
-    }
-  }, [allUnits, filters.maxSqft]);
 
   const activeFloor = useMemo(
     () => floors.find((f) => f.id === activeFloorId) || null,
@@ -143,6 +144,7 @@ export function BuildingProvider({ children }) {
     () => ({
       data,
       loading,
+      error, // Exported error state
       activeFloor,
       activeUnit,
       allUnits,
@@ -166,6 +168,7 @@ export function BuildingProvider({ children }) {
     [
       data,
       loading,
+      error,
       activeFloor,
       activeUnit,
       allUnits,
