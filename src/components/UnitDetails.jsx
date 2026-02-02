@@ -84,7 +84,7 @@ export default function UnitDetails({ onOpenGallery, onClose }) {
 
       <div
         onClick={activeUnit.gallery?.length > 0 ? onOpenGallery : undefined}
-        className={`mb-8 relative rounded-2xl overflow-hidden shadow-lg aspect-video ${activeUnit.gallery?.length > 0 ? "cursor-pointer group" : ""}`}
+        className={`mb-8 relative rounded-xl overflow-hidden shadow-lg aspect-video ${activeUnit.gallery?.length > 0 ? "cursor-pointer group" : ""}`}
       >
         <img
           src={activeUnit.image}
@@ -149,7 +149,7 @@ export default function UnitDetails({ onOpenGallery, onClose }) {
         href={activeUnit.pdf}
         target="_blank"
         rel="noreferrer"
-        className="w-full flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold py-4 rounded-full hover:bg-[#1b3a5a] shadow-lg transition-all"
+        className="w-full flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold py-4 rounded-xl hover:bg-[#1b3a5a] shadow-lg transition-all"
       >
         <Download size={18} /> Download Floorplan
       </a>
