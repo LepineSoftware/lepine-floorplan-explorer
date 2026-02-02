@@ -2,27 +2,37 @@ import React, { memo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { useBuilding } from "../context/BuildingContext";
-import { Heart, ArrowRight, Maximize, Bed, Bath } from "lucide-react";
+import { Heart, ArrowRight, Maximize, Bed, Bath, LucideIcon } from "lucide-react";
+import { Unit } from "../types/building";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const attributeIcons = {
+interface UnitCardProps {
+  unit: Unit;
+  isActive: boolean;
+  isFav: boolean;
+  toggleFavorite: (id: string) => void;
+  onSelectUnit: (id: string) => void;
+  isDesktop: boolean;
+}
+
+const attributeIcons: Record<string, { label: string; icon: LucideIcon }> = {
   sqft: { label: "sqft", icon: Maximize },
   numOfBeds: { label: "Beds", icon: Bed },
   numOfBaths: { label: "Baths", icon: Bath },
 };
 
-const UnitCard = memo(
+const UnitCard = memo<UnitCardProps>(
   ({ unit, isActive, isFav, toggleFavorite, onSelectUnit, isDesktop }) => {
     const [isPulsing, setIsPulsing] = useState(false);
 
     if (!unit) return null;
 
-    const handleFavorite = (e) => {
+    const handleFavorite = (e: React.MouseEvent) => {
       e.preventDefault();
-      e.stopPropagation(); // Prevents triggering card-level click on desktop
+      e.stopPropagation();
       if (!isFav) {
         setIsPulsing(true);
         setTimeout(() => setIsPulsing(false), 500);
@@ -30,8 +40,6 @@ const UnitCard = memo(
       toggleFavorite(unit.id);
     };
 
-    // On desktop, clicking the card triggers selection.
-    // On mobile, the wrapper does nothing to avoid interfering with swiper gestures.
     const handleCardClick = () => {
       if (isDesktop) {
         onSelectUnit(unit.id);
@@ -89,7 +97,7 @@ const UnitCard = memo(
                   </div>
                   <div className="min-w-0">
                     <p className="text-[11px] sm:text-xs font-bold text-slate-900 leading-none">
-                      {unit[key]}
+                      {(unit as any)[key]}
                     </p>
                     <p className="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest truncate">
                       {Config.label}
@@ -101,12 +109,10 @@ const UnitCard = memo(
           </div>
 
           <button
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent) => {
               if (!isDesktop) {
-                // On mobile, explicitly trigger selection here
                 onSelectUnit(unit.id);
               }
-              // On desktop, the card's onClick handles it via bubbling
             }}
             className="mt-auto w-full py-3 rounded-xl bg-slate-50 text-[#102a43] text-[10px] sm:text-xs font-bold hover:bg-[#102a43] hover:text-white transition-all flex items-center justify-center gap-2"
           >
@@ -115,12 +121,11 @@ const UnitCard = memo(
         </div>
       </div>
     );
-  },
+  }
 );
 
-export default function UnitGrid({ onSelectUnit }) {
-  const { filteredUnits, activeUnit, favorites, toggleFavorite, gridTab } =
-    useBuilding();
+export default function UnitGrid({ onSelectUnit }: { onSelectUnit: (id: string) => void }) {
+  const { filteredUnits, activeUnit, favorites, toggleFavorite, gridTab } = useBuilding();
 
   if (filteredUnits.length === 0) {
     return (
@@ -166,7 +171,7 @@ export default function UnitGrid({ onSelectUnit }) {
                 isFav={favorites.includes(unit.id)}
                 toggleFavorite={toggleFavorite}
                 onSelectUnit={onSelectUnit}
-                isDesktop={false} // Card click disabled for mobile
+                isDesktop={false}
               />
             </SwiperSlide>
           ))}
@@ -184,7 +189,7 @@ export default function UnitGrid({ onSelectUnit }) {
               isFav={favorites.includes(unit.id)}
               toggleFavorite={toggleFavorite}
               onSelectUnit={onSelectUnit}
-              isDesktop={true} // Whole card is clickable
+              isDesktop={true}
             />
           ))}
         </div>

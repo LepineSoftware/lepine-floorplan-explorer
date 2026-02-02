@@ -1,3 +1,4 @@
+import { PointExpression } from "leaflet";
 import { BACKGROUND_FILL } from "./mapStyles";
 
 export const MAP_VIEW_SETTINGS = {
@@ -14,7 +15,7 @@ export const MAP_VIEW_SETTINGS = {
     touchZoom: false,
     minZoomOffset: 0,
     maxZoomOffset: 0,
-    padding: [0, 0],
+    padding: [0, 0] as PointExpression,
   },
 
   floorplan: {
@@ -26,7 +27,7 @@ export const MAP_VIEW_SETTINGS = {
     touchZoom: true,
     minZoomOffset: -1,
     maxZoomOffset: 2,
-    padding: [20, 20],
+    padding: [20, 20] as PointExpression,
   },
 };
 

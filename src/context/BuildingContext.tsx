@@ -5,23 +5,50 @@ import React, {
   useEffect,
   useMemo,
   useCallback,
+  ReactNode,
 } from "react";
+import { Unit, Floor, BuildingData, Filters } from "../types/building";
 
-const BuildingContext = createContext();
+interface BuildingContextType {
+  data: BuildingData | null;
+  loading: boolean;
+  error: string | null;
+  activeFloor: Floor | null;
+  activeUnit: Unit | null;
+  allUnits: Unit[];
+  filteredUnits: Unit[];
+  floors: Floor[];
+  favorites: string[];
+  gridTab: string;
+  viewMode: string;
+  filters: Filters;
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  setGridTab: (tab: string) => void;
+  setViewMode: (mode: string) => void;
+  selectFloor: (id: string) => void;
+  selectUnit: (unitId: string) => void;
+  toggleFavorite: (id: string) => void;
+  clearFavorites: () => void;
+  goBackToBuilding: () => void;
+  activeTour: any;
+  setActiveTour: (tour: any) => void;
+}
 
-export function BuildingProvider({ children }) {
-  const [data, setData] = useState(null);
+const BuildingContext = createContext<BuildingContextType | undefined>(undefined);
+
+export function BuildingProvider({ children }: { children: ReactNode }) {
+  const [data, setData] = useState<BuildingData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // Added error state
-  const [activeFloorId, setActiveFloorId] = useState(null);
-  const [activeUnitId, setActiveUnitId] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [activeFloorId, setActiveFloorId] = useState<string | null>(null);
+  const [activeUnitId, setActiveUnitId] = useState<string | null>(null);
 
   const [viewMode, setViewMode] = useState("map");
   const [gridTab, setGridTab] = useState("all");
-  const [favorites, setFavorites] = useState([]);
-  const [activeTour, setActiveTour] = useState(null);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [activeTour, setActiveTour] = useState<any>(null);
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     beds: "All",
     baths: "All",
     status: "All",
@@ -36,10 +63,9 @@ export function BuildingProvider({ children }) {
         if (!res.ok) throw new Error("Failed to load building data");
         return res.json();
       })
-      .then((json) => {
+      .then((json: BuildingData) => {
         setData(json);
 
-        // Initialize filters immediately to avoid double render cycle
         const allUnits = json.config.floors.flatMap((f) => f.units);
         if (allUnits.length > 0) {
           const sqfts = allUnits.map((u) => u.sqft || 0);
@@ -53,8 +79,7 @@ export function BuildingProvider({ children }) {
         setLoading(false);
       })
       .catch((err) => {
-        console.error(err);
-        setError(err.message); // Capture error for the UI
+        setError(err.message);
         setLoading(false);
       });
   }, []);
@@ -75,6 +100,7 @@ export function BuildingProvider({ children }) {
     () => floors.find((f) => f.id === activeFloorId) || null,
     [floors, activeFloorId],
   );
+  
   const activeUnit = useMemo(
     () => allUnits.find((u) => u.id === activeUnitId) || null,
     [allUnits, activeUnitId],
@@ -105,7 +131,7 @@ export function BuildingProvider({ children }) {
   }, [allUnits, filters, favorites, gridTab]);
 
   const selectFloor = useCallback(
-    (id) => {
+    (id: string) => {
       setActiveFloorId(id);
       const floor = floors.find((f) => f.id === id);
       if (floor && floor.units.length > 0) {
@@ -117,7 +143,7 @@ export function BuildingProvider({ children }) {
   );
 
   const handleUnitSelect = useCallback(
-    (unitId) => {
+    (unitId: string) => {
       const unitData = allUnits.find((u) => u.id === unitId);
       if (unitData) {
         setActiveFloorId(unitData.floorId);
@@ -127,7 +153,7 @@ export function BuildingProvider({ children }) {
     [allUnits],
   );
 
-  const toggleFavorite = useCallback((id) => {
+  const toggleFavorite = useCallback((id: string) => {
     setFavorites((prev) =>
       prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id],
     );
@@ -144,7 +170,7 @@ export function BuildingProvider({ children }) {
     () => ({
       data,
       loading,
-      error, // Exported error state
+      error,
       activeFloor,
       activeUnit,
       allUnits,
@@ -166,24 +192,9 @@ export function BuildingProvider({ children }) {
       setActiveTour,
     }),
     [
-      data,
-      loading,
-      error,
-      activeFloor,
-      activeUnit,
-      allUnits,
-      filteredUnits,
-      floors,
-      favorites,
-      gridTab,
-      viewMode,
-      filters,
-      selectFloor,
-      handleUnitSelect,
-      toggleFavorite,
-      clearFavorites,
-      goBackToBuilding,
-      activeTour,
+      data, loading, error, activeFloor, activeUnit, allUnits, filteredUnits,
+      floors, favorites, gridTab, viewMode, filters, selectFloor,
+      handleUnitSelect, toggleFavorite, clearFavorites, goBackToBuilding, activeTour,
     ],
   );
 

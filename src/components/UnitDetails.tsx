@@ -17,10 +17,26 @@ import {
   Wind,
   Sparkles,
   X,
+  LucideIcon
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
+// 1. Import the Unit type for data consistency
+import { Unit } from "../types/building";
 
-const attributeIcons = {
+// 2. Define an interface for the component props to resolve errors 7031
+interface UnitDetailsProps {
+  onOpenGallery: () => void;
+  onClose?: () => void; // Optional if not used on all platforms
+}
+
+// 3. Define an interface for the icon configuration
+interface AttributeIconConfig {
+  label: string;
+  icon: LucideIcon;
+}
+
+// 4. Use a Record type to allow string indexing and resolve error 7053
+const attributeIcons: Record<string, AttributeIconConfig> = {
   sqft: { label: "sqft", icon: Maximize },
   numOfBeds: { label: "Beds", icon: Bed },
   numOfBaths: { label: "Baths", icon: Bath },
@@ -36,7 +52,7 @@ const attributeIcons = {
   modelSuite: { label: "Model Suite", icon: Sparkles },
 };
 
-export default function UnitDetails({ onOpenGallery, onClose }) {
+export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps) {
   const { activeUnit, favorites, toggleFavorite } = useBuilding();
   const [isPulsing, setIsPulsing] = useState(false);
 
@@ -83,15 +99,15 @@ export default function UnitDetails({ onOpenGallery, onClose }) {
       </div>
 
       <div
-        onClick={activeUnit.gallery?.length > 0 ? onOpenGallery : undefined}
-        className={`mb-8 relative rounded-xl overflow-hidden shadow-lg aspect-video ${activeUnit.gallery?.length > 0 ? "cursor-pointer group" : ""}`}
+        onClick={activeUnit.gallery && activeUnit.gallery.length > 0 ? onOpenGallery : undefined}
+        className={`mb-8 relative rounded-xl overflow-hidden shadow-lg aspect-video ${activeUnit.gallery && activeUnit.gallery.length > 0 ? "cursor-pointer group" : ""}`}
       >
         <img
           src={activeUnit.image}
           alt={activeUnit.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        {activeUnit.gallery?.length > 0 && (
+        {activeUnit.gallery && activeUnit.gallery.length > 0 && (
           <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
             <ImageIcon size={14} />
             <span className="text-[10px] font-bold uppercase tracking-wider">
@@ -112,7 +128,7 @@ export default function UnitDetails({ onOpenGallery, onClose }) {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-slate-900 leading-none">
-                    {activeUnit[key]}
+                    {activeUnit[key as keyof Unit]}
                   </p>
                   <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest">
                     {Config.label}
@@ -129,7 +145,7 @@ export default function UnitDetails({ onOpenGallery, onClose }) {
           {Object.entries(attributeIcons)
             .filter(
               ([key]) =>
-                typeof activeUnit[key] === "boolean" && activeUnit[key],
+                typeof activeUnit[key as keyof Unit] === "boolean" && activeUnit[key as keyof Unit],
             )
             .map(([key, config]) => (
               <div key={key} className="flex items-center gap-2 text-slate-600">

@@ -3,18 +3,27 @@ import { Info } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 import UnitDetails from "./UnitDetails";
 
-export default function UnitDrawer({ isOpen, onClose, onOpenGallery }) {
+// 1. Define an interface for the props to solve errors on lines 6 (isOpen, onClose, onOpenGallery)
+interface UnitDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onOpenGallery: () => void;
+}
+
+export default function UnitDrawer({ isOpen, onClose, onOpenGallery }: UnitDrawerProps) {
   const { activeUnit } = useBuilding();
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const startY = useRef(0);
+  const startY = useRef<number>(0);
 
-  const handleTouchStart = (e) => {
+  // 2. Type the 'e' parameter as React.TouchEvent to solve error on line 12
+  const handleTouchStart = (e: React.TouchEvent) => {
     startY.current = e.touches[0].clientY;
     setIsDragging(true);
   };
 
-  const handleTouchMove = (e) => {
+  // 3. Type the 'e' parameter as React.TouchEvent to solve error on line 17
+  const handleTouchMove = (e: React.TouchEvent) => {
     const deltaY = e.touches[0].clientY - startY.current;
     if (deltaY > 0) setDragOffset(deltaY);
   };
@@ -27,17 +36,19 @@ export default function UnitDrawer({ isOpen, onClose, onOpenGallery }) {
 
   return (
     <div
-      className={`lg:hidden fixed inset-0 z-[2000] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
+      className={`lg:hidden fixed inset-0 z-[2000] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+        isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+      }`}
       onClick={onClose}
     >
       <div
-        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] max-h-[90vh] flex flex-col transition-transform ${isDragging ? "duration-0" : "duration-500 ease-out"} ${isOpen ? "translate-y-0" : "translate-y-full"}`}
+        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] max-h-[90vh] flex flex-col transition-transform ${
+          isDragging ? "duration-0" : "duration-500 ease-out"
+        } ${isOpen ? "translate-y-0" : "translate-y-full"}`}
         style={{
-          transform: isOpen
-            ? `translateY(${dragOffset}px)`
-            : "translateY(100%)",
+          transform: isOpen ? `translateY(${dragOffset}px)` : "translateY(100%)",
         }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e: React.MouseEvent) => e.stopPropagation()} // Also typed for best practice
       >
         <div
           className="w-full py-4 cursor-grab active:cursor-grabbing"

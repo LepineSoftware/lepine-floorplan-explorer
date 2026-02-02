@@ -3,12 +3,25 @@ import { ChevronLeft, ChevronRight, Info } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
 import UnitDetails from "./UnitDetails";
 
-export default function UnitSidebar({ isOpen, onToggle, onOpenGallery }) {
+// 1. Define an interface for the component props to resolve errors 7031
+interface UnitSidebarProps {
+  isOpen: boolean;
+  onToggle: () => void;
+  onOpenGallery: () => void;
+}
+
+export default function UnitSidebar({ 
+  isOpen, 
+  onToggle, 
+  onOpenGallery 
+}: UnitSidebarProps) {
   const { activeUnit } = useBuilding();
 
   return (
     <div
-      className={`hidden lg:flex flex-col bg-white border-l border-slate-100 h-full shadow-xl z-20 overflow-hidden transition-all duration-500 relative ${isOpen ? "w-[420px]" : "w-0 border-l-0"}`}
+      className={`hidden lg:flex flex-col bg-white border-l border-slate-100 h-full shadow-xl z-20 overflow-hidden transition-all duration-500 relative ${
+        isOpen ? "w-[420px]" : "w-0 border-l-0"
+      }`}
     >
       <button
         onClick={onToggle}

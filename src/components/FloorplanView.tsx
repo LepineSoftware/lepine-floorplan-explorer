@@ -14,6 +14,8 @@ import UnitSidebar from "./UnitSidebar";
 import UnitDrawer from "./UnitDrawer";
 import VirtualTourEmbed from "./VirtualTourEmbed";
 import GalleryModal from "./GalleryModal";
+// 1. Import the Unit type to resolve implicit 'any' errors
+import { Unit } from "../types/building";
 
 export default function FloorplanView() {
   const {
@@ -37,13 +39,10 @@ export default function FloorplanView() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
 
-  // Close sidebar automatically when changing floors to prevent layout confusion
   useEffect(() => {
     setIsMobileSidebarOpen(false);
   }, [activeFloor?.id]);
 
-  // FIX: Ensure the mobile sidebar opens immediately on unit selection,
-  // even if a floor change just occurred.
   useEffect(() => {
     if (activeUnit && window.innerWidth < 1024) {
       setIsMobileSidebarOpen(true);
@@ -52,8 +51,9 @@ export default function FloorplanView() {
 
   if (!activeFloor) return null;
 
+  // 2. Type the 'unitId' parameter as a string to resolve error 7006
   const handleUnitSelect = useCallback(
-    (unitId) => {
+    (unitId: string) => {
       selectUnit(unitId);
       setIsDesktopSidebarOpen(true);
     },
@@ -118,7 +118,8 @@ export default function FloorplanView() {
                 units={activeFloor.units}
                 vrTours={activeFloor.vrTours || []}
                 activeUnitId={activeUnit?.id}
-                onSelect={(unit) => handleUnitSelect(unit.id)}
+                // 3. Type the 'unit' parameter as Unit to resolve error 7006
+                onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
                 onTourSelect={setActiveTour}
               />
             ) : (

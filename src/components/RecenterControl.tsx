@@ -1,6 +1,13 @@
+import React from "react";
 import { useMap } from "react-leaflet";
+import L from "leaflet";
 
-export default function RecenterControl({ bounds, padding }) {
+interface RecenterControlProps {
+  bounds: L.LatLngBoundsExpression;
+  padding: L.PointExpression;
+}
+
+export default function RecenterControl({ bounds, padding }: RecenterControlProps) {
   const map = useMap();
 
   return (
@@ -10,7 +17,7 @@ export default function RecenterControl({ bounds, padding }) {
     >
       <button
         onClick={() => map.fitBounds(bounds, { padding })}
-        className="bg-white p-2 rounded-lg shadow-xl hover:bg-slate-50 flex items-center gap-2 text-[10px] border border-slate-200 transition-colors pointer-events-auto font-semibold"
+        className="bg-white p-2 rounded-lg shadow-xl hover:bg-slate-50 flex items-center gap-2 text-[10px] border border-slate-200 transition-colors pointer-events-auto font-semibold font-['Jost']"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

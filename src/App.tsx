@@ -3,7 +3,7 @@ import { useBuilding } from "./context/BuildingContext";
 import BuildingView from "./components/BuildingView";
 import FloorplanView from "./components/FloorplanView";
 
-function App() {
+const App: React.FC = () => {
   const { loading, error, activeFloor } = useBuilding();
 
   if (loading) {
@@ -14,7 +14,6 @@ function App() {
     );
   }
 
-  // Handle data fetch failures gracefully
   if (error) {
     return (
       <div className="h-screen w-screen flex flex-col items-center justify-center bg-slate-50 text-slate-800 p-8 text-center">
@@ -35,6 +34,6 @@ function App() {
       {activeFloor ? <FloorplanView /> : <BuildingView />}
     </div>
   );
-}
+};
 
 export default App;

@@ -4,10 +4,21 @@ import L from "leaflet";
 import MapController from "./MapController";
 import FloorPolygon from "./FloorPolygon";
 import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
+import { Floor } from "../types/building";
 import "leaflet/dist/leaflet.css";
 
-export default function BuildingMap({ config, floors, onSelect }) {
-  const bounds = [
+interface BuildingMapProps {
+  config: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  floors: Floor[];
+  onSelect: (floor: Floor) => void;
+}
+
+const BuildingMap: React.FC<BuildingMapProps> = ({ config, floors, onSelect }) => {
+  const bounds: L.LatLngBoundsExpression = [
     [0, 0],
     [config.height, config.width],
   ];
@@ -27,7 +38,6 @@ export default function BuildingMap({ config, floors, onSelect }) {
       touchZoom={settings.touchZoom}
       fadeAnimation={false}
       zoomAnimation={false}
-      markerZoomAnimation={false}
     >
       <ImageOverlay url={config.url} bounds={bounds} />
       <MapController
@@ -36,14 +46,11 @@ export default function BuildingMap({ config, floors, onSelect }) {
         imageWidth={config.width}
         imageHeight={config.height}
       />
-
       {floors.map((floor) => (
-        <FloorPolygon
-          key={floor.id}
-          floor={floor}
-          onSelect={onSelect} // Passes the navigate function to the polygon
-        />
+        <FloorPolygon key={floor.id} floor={floor} onSelect={onSelect} />
       ))}
     </MapContainer>
   );
-}
+};
+
+export default BuildingMap;

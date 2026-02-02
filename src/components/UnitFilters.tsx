@@ -7,17 +7,20 @@ import {
   RotateCcw,
   Trash2,
 } from "lucide-react";
+// 1. Import the Unit type if you want to be stricter with feature keys
+import { Unit } from "../types/building";
 
 export default function UnitFilters() {
   const { filters, setFilters, allUnits, gridTab, clearFavorites } =
     useBuilding();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const unitSqfts = allUnits.map((u) => u.sqft || 0);
+  const unitSqfts = allUnits.map((u: Unit) => u.sqft || 0);
   const minSqftLimit = unitSqfts.length > 0 ? Math.min(...unitSqfts) : 0;
   const maxSqftLimit = unitSqfts.length > 0 ? Math.max(...unitSqfts) : 5000;
 
-  const handleCheckboxChange = (feature) => {
+  // 2. Type the 'feature' parameter as a string to resolve error 7006
+  const handleCheckboxChange = (feature: string) => {
     setFilters((prev) => ({
       ...prev,
       features: prev.features.includes(feature)
@@ -102,7 +105,7 @@ export default function UnitFilters() {
               </label>
               <select
                 value={filters.beds}
-                onChange={(e) =>
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setFilters({ ...filters, beds: e.target.value })
                 }
                 className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-[#102a43] focus:ring-2 focus:ring-[#102a43]/10 outline-none"
@@ -122,7 +125,7 @@ export default function UnitFilters() {
               </label>
               <select
                 value={filters.baths}
-                onChange={(e) =>
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                   setFilters({ ...filters, baths: e.target.value })
                 }
                 className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-[#102a43] focus:ring-2 focus:ring-[#102a43]/10 outline-none"
@@ -150,7 +153,7 @@ export default function UnitFilters() {
                 min={minSqftLimit}
                 max={maxSqftLimit}
                 value={filters.maxSqft || maxSqftLimit}
-                onChange={(e) =>
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setFilters({ ...filters, maxSqft: parseInt(e.target.value) })
                 }
                 className="accent-[#102a43] h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer"
