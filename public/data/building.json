@@ -28,11 +28,35 @@
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
+        "units": []
+      },
+      {
+        "id": "2",
+        "name": "2nd Floor",
+        "polygon": [
+          [514, 808],
+          [627, 807],
+          [732, 3134],
+          [529, 3132]
+        ],
+        "config": {
+          "width": 1224,
+          "height": 792,
+          "url": "/assets/csl-floor1.svg"
+        },
+        "amenityTours": [
+          {
+            "id": "at210",
+            "label": "Amenity Tour",
+            "position": [435, 1250],
+            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+          }
+        ],
         "units": [
           {
-            "id": 101,
-            "unitId": "101",
-            "title": "Unit 101",
+            "id": 201,
+            "unitId": "201",
+            "title": "Unit 201",
             "type": "Corner Suite",
             "model": "The Gatineau",
             "sqft": 1136,
@@ -71,9 +95,9 @@
             "description": "Premium corner unit on the 1st floor."
           },
           {
-            "id": 102,
-            "unitId": "102",
-            "title": "Unit 102",
+            "id": 202,
+            "unitId": "202",
+            "title": "Unit 202",
             "type": "Standard Suite",
             "model": "The Ottawa",
             "sqft": 950,
@@ -104,9 +128,9 @@
             "description": "Modern open-concept living space."
           },
           {
-            "id": 106,
-            "unitId": "106",
-            "title": "Unit 106",
+            "id": 206,
+            "unitId": "206",
+            "title": "Unit 206",
             "type": "Studio",
             "model": "The Rideau",
             "sqft": 650,
@@ -135,101 +159,6 @@
               [598, 1832]
             ],
             "description": "Efficient layout with high-end finishes."
-          }
-        ]
-      },
-      {
-        "id": "2",
-        "name": "2nd Floor",
-        "polygon": [
-          [514, 808],
-          [627, 807],
-          [732, 3134],
-          [529, 3132]
-        ],
-        "config": {
-          "width": 1224,
-          "height": 792,
-          "url": "/assets/csl-floor1.svg"
-        },
-        "amenityTours": [
-          {
-            "id": "at210",
-            "label": "Amenity Tour",
-            "position": [435, 1250],
-            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
-          }
-        ],
-        "units": [
-          {
-            "id": 201,
-            "unitId": "201",
-            "title": "Unit 201",
-            "type": "Corner Suite",
-            "model": "The Gatineau",
-            "sqft": 1136,
-            "numOfBeds": 3,
-            "numOfBaths": 2,
-            "balcony": true,
-            "tub": true,
-            "pantry": true,
-            "terrace": true,
-            "officeDen": true,
-            "walkInCloset": true,
-            "barrierFree": false,
-            "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
-            "gallery": [
-              "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6",
-              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
-            ],
-            "pdf": "/assets/floorplan.pdf",
-            "property": "Residential",
-            "onHoldExpires": null,
-            "status": "Available",
-            "builtIns": true,
-            "juliet": false,
-            "modelSuite": false,
-            "isFeatured": false,
-            "polygon": [
-              [577, 181],
-              [844, 181],
-              [844, 405],
-              [577, 405]
-            ],
-            "description": "Premium corner unit on the 2nd floor."
-          },
-          {
-            "id": 202,
-            "unitId": "202",
-            "title": "Unit 202",
-            "type": "Standard Suite",
-            "model": "The Ottawa",
-            "sqft": 950,
-            "numOfBeds": 2,
-            "numOfBaths": 1,
-            "balcony": true,
-            "tub": true,
-            "pantry": false,
-            "terrace": false,
-            "officeDen": false,
-            "walkInCloset": true,
-            "barrierFree": true,
-            "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=800&q=80",
-            "pdf": "/assets/floorplan.pdf",
-            "property": "Residential",
-            "onHoldExpires": null,
-            "status": "Available",
-            "builtIns": false,
-            "juliet": true,
-            "modelSuite": false,
-            "isFeatured": false,
-            "polygon": [
-              [292, 652],
-              [546, 652],
-              [546, 883],
-              [292, 883]
-            ],
-            "description": "Modern open-concept living space."
           }
         ]
       },
