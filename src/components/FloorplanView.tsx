@@ -50,6 +50,8 @@ export default function FloorplanView() {
 
   if (!activeFloor) return null;
 
+  const hasUnits = activeFloor.units && activeFloor.units.length > 0;
+
   const handleUnitSelect = useCallback(
     (unitId: string) => {
       selectUnit(unitId);
@@ -152,17 +154,21 @@ export default function FloorplanView() {
         </div>
       </div>
 
-      <UnitSidebar
-        isOpen={isDesktopSidebarOpen}
-        onToggle={() => setIsDesktopSidebarOpen(!isDesktopSidebarOpen)}
-        onOpenGallery={() => setIsGalleryOpen(true)}
-      />
+      {hasUnits && (
+        <>
+          <UnitSidebar
+            isOpen={isDesktopSidebarOpen}
+            onToggle={() => setIsDesktopSidebarOpen(!isDesktopSidebarOpen)}
+            onOpenGallery={() => setIsGalleryOpen(true)}
+          />
 
-      <UnitDrawer
-        isOpen={isMobileSidebarOpen}
-        onClose={() => setIsMobileSidebarOpen(false)}
-        onOpenGallery={() => setIsGalleryOpen(true)}
-      />
+          <UnitDrawer
+            isOpen={isMobileSidebarOpen}
+            onClose={() => setIsMobileSidebarOpen(false)}
+            onOpenGallery={() => setIsGalleryOpen(true)}
+          />
+        </>
+      )}
 
       <TourModal
         isOpen={!!activeTour}
