@@ -18,7 +18,7 @@
         "config": {
           "width": 2273,
           "height": 1146,
-          "url": "/assets/floorplan.svg"
+          "url": "/assets/csl-parking.svg"
         },
         "amenityTours": [
           {
@@ -148,9 +148,9 @@
           [529, 3132]
         ],
         "config": {
-          "width": 2273,
-          "height": 1146,
-          "url": "/assets/floorplan.svg"
+          "width": 1224,
+          "height": 792,
+          "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
           {
@@ -309,8 +309,8 @@
           [1113, 3135]
         ],
         "config": {
-          "width": 2273,
-          "height": 1146,
+          "width": 1224,
+          "height": 792,
           "url": "/assets/floorplan.svg"
         },
         "amenityTours": [

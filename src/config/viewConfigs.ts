@@ -25,7 +25,7 @@ export const MAP_VIEW_SETTINGS = {
     scrollWheelZoom: true,
     doubleClickZoom: true,
     touchZoom: true,
-    minZoomOffset: -1,
+    minZoomOffset: -0,
     maxZoomOffset: 2,
     padding: [20, 20] as PointExpression,
   },
