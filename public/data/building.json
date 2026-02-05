@@ -1,30 +1,58 @@
 {
-  "name": "1642 Lépine Blvd",
-  "address": "Ottawa, Ontario",
+  "name": "Carré Saint Louis",
+  "address": "1050 Canadian Shield Ave",
   "config": {
-    "width": 3840,
-    "height": 2160,
+    "width": 2000,
+    "height": 1122,
     "url": "/assets/building.jpg",
     "floors": [
       {
         "id": "1",
         "name": "Ground Level",
         "polygon": [
-          [300, 808],
-          [514, 808],
-          [529, 3132],
-          [300, 3132]
+          [
+            140,
+            275
+          ],
+          [
+            687,
+            331
+          ],
+          [
+            994,
+            328
+          ],
+          [
+            1846,
+            266
+          ],
+          [
+            1848,
+            193
+          ],
+          [
+            994,
+            143
+          ],
+          [
+            793,
+            141
+          ],
+          [
+            142,
+            186
+          ]
         ],
         "config": {
-          "width": 2273,
-          "height": 1146,
+          "width": 1224,
+          "height": 792,
           "url": "/assets/csl-parking.svg"
         },
         "amenityTours": [
           {
             "id": "at110",
             "label": "Amenity Tour",
-            "position": [435, 1250],
+            "position": [435, 585],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
@@ -34,10 +62,46 @@
         "id": "2",
         "name": "2nd Floor",
         "polygon": [
-          [514, 808],
-          [627, 807],
-          [732, 3134],
-          [529, 3132]
+          [
+            140,
+            275
+          ],
+          [
+            687,
+            331
+          ],
+          [
+            994,
+            328
+          ],
+          [
+            1846,
+            266
+          ],
+          [
+            1845,
+            301
+          ],
+          [
+            983,
+            438
+          ],
+          [
+            898,
+            452
+          ],
+          [
+            784,
+            450
+          ],
+          [
+            740,
+            434
+          ],
+          [
+            142,
+            304
+          ]
         ],
         "config": {
           "width": 1224,
@@ -48,7 +112,7 @@
           {
             "id": "at210",
             "label": "Amenity Tour",
-            "position": [435, 1250],
+            "position": [435, 585],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
@@ -87,11 +151,23 @@
             "modelSuite": false,
             "isFeatured": true,
             "polygon": [
-              [577, 181],
-              [844, 181],
-              [844, 405],
-              [577, 405]
-            ],
+  [
+    648,
+    624
+  ],
+  [
+    708,
+    624
+  ],
+  [
+    709,
+    563
+  ],
+  [
+    647,
+    563
+  ]
+],
             "description": "Premium corner unit on the 1st floor."
           },
           {
@@ -120,11 +196,23 @@
             "modelSuite": false,
             "isFeatured": false,
             "polygon": [
-              [292, 652],
-              [546, 652],
-              [546, 883],
-              [292, 883]
-            ],
+  [
+    612,
+    311
+  ],
+  [
+    708,
+    311
+  ],
+  [
+    708,
+    254
+  ],
+  [
+    613,
+    255
+  ]
+],
             "description": "Modern open-concept living space."
           },
           {
@@ -166,21 +254,61 @@
         "id": "3",
         "name": "3rd Floor",
         "polygon": [
-          [732, 808],
-          [627, 807],
-          [732, 3134],
-          [921, 3134]
+          [
+            740,
+            434
+          ],
+          [
+            142,
+            304
+          ],
+          [
+            149,
+            362
+          ],
+          [
+            744,
+            540
+          ],
+          [
+            787,
+            561
+          ],
+          [
+            903,
+            563
+          ],
+          [
+            979,
+            545
+          ],
+          [
+            1846,
+            329
+          ],
+          [
+            1845,
+            301
+          ],
+          [
+            898,
+            452
+          ],
+          [
+            784,
+            450
+          ]
         ],
         "config": {
-          "width": 2273,
-          "height": 1146,
-          "url": "/assets/floorplan.svg"
+          "width": 1224,
+          "height": 792,
+          "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
           {
             "id": "at310",
             "label": "Amenity Tour",
-            "position": [435, 1250],
+            "position": [435, 585],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
@@ -215,11 +343,23 @@
             "modelSuite": false,
             "isFeatured": true,
             "polygon": [
-              [577, 181],
-              [844, 181],
-              [844, 405],
-              [577, 405]
-            ],
+  [
+    648,
+    624
+  ],
+  [
+    708,
+    624
+  ],
+  [
+    709,
+    563
+  ],
+  [
+    647,
+    563
+  ]
+],
             "virtualTour": {
               "label": "Suite 301 Virtual Tour",
               "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
@@ -232,21 +372,77 @@
         "id": "4",
         "name": "4th Floor",
         "polygon": [
-          [836, 807],
-          [732, 808],
-          [921, 3134],
-          [1113, 3135]
+          [
+            149,
+            362
+          ],
+          [
+            744,
+            540
+          ],
+          [
+            787,
+            561
+          ],
+          [
+            903,
+            563
+          ],
+          [
+            1846,
+            329
+          ],
+          [
+            1846,
+            376
+          ],
+          [
+            1430,
+            527
+          ],
+          [
+            1379,
+            552
+          ],
+          [
+            1324,
+            539
+          ],
+          [
+            979,
+            663
+          ],
+          [
+            897,
+            694
+          ],
+          [
+            788,
+            693
+          ],
+          [
+            742,
+            659
+          ],
+          [
+            742,
+            647
+          ],
+          [
+            205,
+            428
+          ]
         ],
         "config": {
           "width": 1224,
           "height": 792,
-          "url": "/assets/floorplan.svg"
+          "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
           {
             "id": "at410",
             "label": "Amenity Tour",
-            "position": [435, 1250],
+            "position": [435, 585],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
@@ -277,11 +473,23 @@
             "modelSuite": false,
             "isFeatured": false,
             "polygon": [
-              [292, 652],
-              [546, 652],
-              [546, 883],
-              [292, 883]
-            ],
+  [
+    612,
+    311
+  ],
+  [
+    708,
+    311
+  ],
+  [
+    708,
+    254
+  ],
+  [
+    613,
+    255
+  ]
+],
             "description": "Modern open-concept living space."
           }
         ]
@@ -290,163 +498,77 @@
         "id": "5",
         "name": "5th Floor",
         "polygon": [
-          [943, 808],
-          [836, 807],
-          [1113, 3135],
-          [1191, 3149],
-          [1202, 3148],
-          [1198, 3114],
-          [1299, 3117]
+          [
+            205,
+            428
+          ],
+          [
+            280,
+            579
+          ],
+          [
+            783,
+            885
+          ],
+          [
+            897,
+            894
+          ],
+          [
+            1332,
+            704
+          ],
+          [
+            1849,
+            443
+          ],
+          [
+            1846,
+            376
+          ],
+          [
+            1379,
+            552
+          ],
+          [
+            1324,
+            539
+          ],
+          [
+            897,
+            694
+          ],
+          [
+            788,
+            693
+          ],
+          [
+            742,
+            659
+          ],
+          [
+            742,
+            647
+          ]
         ],
         "config": {
-          "width": 2273,
-          "height": 1146,
-          "url": "/assets/floorplan.svg"
+          "width": 1224,
+          "height": 792,
+          "url": "/assets/csl-floor1.svg"
         },
         "amenityTours": [
           {
             "id": "at510",
             "label": "Amenity Tour",
-            "position": [435, 1250],
+            "position": [435, 585],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
         ],
         "units": [
           {
-            "id": 506,
-            "unitId": "506",
-            "title": "Unit 506",
-            "type": "Studio",
-            "model": "The Rideau",
-            "sqft": 650,
-            "numOfBeds": 1,
-            "numOfBaths": 1,
-            "balcony": false,
-            "tub": true,
-            "pantry": false,
-            "terrace": false,
-            "officeDen": false,
-            "walkInCloset": false,
-            "barrierFree": false,
-            "image": "https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=800&q=80",
-            "pdf": "/assets/floorplan.pdf",
-            "property": "Residential",
-            "onHoldExpires": null,
-            "status": "Leased",
-            "builtIns": true,
-            "juliet": false,
-            "modelSuite": false,
-            "isFeatured": false,
-            "polygon": [
-              [598, 1526],
-              [846, 1526],
-              [846, 1832],
-              [598, 1832]
-            ],
-            "description": "Efficient layout with high-end finishes."
-          }
-        ]
-      },
-      {
-        "id": "6",
-        "name": "6th Floor",
-        "polygon": [
-          [943, 808],
-          [956, 808],
-          [967, 877],
-          [1055, 875],
-          [1424, 2947],
-          [1351, 2957],
-          [1378, 3119],
-          [1299, 3117]
-        ],
-        "config": {
-          "width": 2273,
-          "height": 1146,
-          "url": "/assets/floorplan.svg"
-        },
-        "amenityTours": [
-          {
-            "id": "at610",
-            "label": "Amenity Tour",
-            "position": [435, 1250],
-            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
-          }
-        ],
-        "units": [
-          {
-            "id": 601,
-            "unitId": "601",
-            "title": "Unit 601",
-            "type": "Corner Suite",
-            "model": "The Gatineau",
-            "sqft": 1136,
-            "numOfBeds": 3,
-            "numOfBaths": 2,
-            "balcony": true,
-            "tub": true,
-            "pantry": true,
-            "terrace": true,
-            "officeDen": true,
-            "walkInCloset": true,
-            "barrierFree": false,
-            "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
-            "gallery": [
-              "https://images.unsplash.com/photo-1502672033835-71e9925813db",
-              "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e"
-            ],
-            "pdf": "/assets/floorplan.pdf",
-            "property": "Residential",
-            "onHoldExpires": null,
-            "status": "Available",
-            "builtIns": true,
-            "juliet": false,
-            "modelSuite": false,
-            "isFeatured": true,
-            "polygon": [
-              [577, 181],
-              [844, 181],
-              [844, 405],
-              [577, 405]
-            ],
-            "description": "Premium corner unit on the 6th floor."
-          }
-        ]
-      },
-      {
-        "id": "7",
-        "name": "7th Floor",
-        "polygon": [
-          [1075, 876],
-          [1055, 875],
-          [1419, 2918],
-          [1658, 2882],
-          [1490, 2168],
-          [1204, 948],
-          [1197, 947],
-          [1191, 957],
-          [1125, 958],
-          [1111, 900],
-          [1079, 900]
-        ],
-        "config": {
-          "width": 2273,
-          "height": 1146,
-          "url": "/assets/floorplan.svg"
-        },
-        "amenityTours": [
-          {
-            "id": "at710",
-            "label": "Amenity Tour",
-            "position": [435, 1250],
-            "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
-          }
-        ],
-        "units": [
-          {
-            "id": 702,
-            "unitId": "702",
-            "title": "Unit 702",
+            "id": 502,
+            "unitId": "502",
+            "title": "Unit 502",
             "type": "Standard Suite",
             "model": "The Ottawa",
             "sqft": 950,
@@ -454,27 +576,39 @@
             "numOfBaths": 1,
             "balcony": true,
             "tub": true,
-            "pantry": true,
-            "terrace": true,
+            "pantry": false,
+            "terrace": false,
             "officeDen": false,
             "walkInCloset": true,
-            "barrierFree": true,
-            "image": "https://images.unsplash.com/photo-1522770179533-24471fcdba45?auto=format&fit=crop&w=800&q=80",
+            "barrierFree": false,
+            "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
             "pdf": "/assets/floorplan.pdf",
             "property": "Residential",
             "onHoldExpires": null,
-            "status": "Leased",
-            "builtIns": true,
+            "status": "Available",
+            "builtIns": false,
             "juliet": true,
             "modelSuite": false,
             "isFeatured": false,
             "polygon": [
-              [292, 652],
-              [546, 652],
-              [546, 883],
-              [292, 883]
-            ],
-            "description": "Modern open-concept living space with top-floor views."
+  [
+    612,
+    311
+  ],
+  [
+    708,
+    311
+  ],
+  [
+    708,
+    254
+  ],
+  [
+    613,
+    255
+  ]
+],
+            "description": "Modern open-concept living space."
           }
         ]
       }

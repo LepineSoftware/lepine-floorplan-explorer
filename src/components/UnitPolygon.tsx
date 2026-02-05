@@ -18,9 +18,12 @@ const UnitPolygon = memo<UnitPolygonProps>(({ unit, isActive, onSelect }) => {
     ? POLYGON_STYLES.active
     : POLYGON_STYLES.inactive;
 
+  // Fix: Swap [x, y] to [lat, lng]
+  const leafletCoordinates = unit.polygon.map((point) => [point[1], point[0]] as [number, number]);
+
   return (
     <Polygon
-      positions={unit.polygon} // 4. unit.polygon is now correctly typed
+      positions={leafletCoordinates}
       pathOptions={currentStyle}
       eventHandlers={{
         click: (e: L.LeafletMouseEvent) => {
@@ -33,7 +36,7 @@ const UnitPolygon = memo<UnitPolygonProps>(({ unit, isActive, onSelect }) => {
       }}
     >
       <Tooltip permanent direction="center" className="polygon-label">
-        {unit.title}
+        {/* {unit.title} */}
       </Tooltip>
     </Polygon>
   );
