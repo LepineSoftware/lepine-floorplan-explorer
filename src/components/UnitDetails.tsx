@@ -105,7 +105,7 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         {activeUnit.gallery && activeUnit.gallery.length > 0 && (
-          <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+          <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white bg-[#102a43]/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
             <ImageIcon size={14} />
             <span className="text-[10px] font-bold uppercase tracking-wider">
               View Gallery

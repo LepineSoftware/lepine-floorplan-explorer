@@ -24,7 +24,7 @@ export default function TourModal({
     >
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-white/50 hover:text-white z-[100] p-2 bg-black/60 hover:bg-black/80 rounded-full transition-colors"
+        className="absolute top-4 right-4 text-white/50 hover:text-white z-[100] p-2 bg-[#102a43]/60 hover:bg-[#102a43]/80 rounded-full transition-colors"
       >
         <X size={24} />
       </button>
@@ -34,7 +34,7 @@ export default function TourModal({
           isOpen ? "scale-100" : "scale-95"
         }`}
       >
-        <div className="w-full h-full bg-black overflow-hidden shadow-2xl relative">
+        <div className="w-full h-full bg-[#102a43] overflow-hidden shadow-2xl relative">
           {isOpen && (
             <iframe
               src={url}

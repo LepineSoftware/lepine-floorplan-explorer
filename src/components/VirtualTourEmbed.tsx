@@ -36,7 +36,7 @@ export default function VirtualTourEmbed({
           isOpen ? "scale-100" : "scale-95"
         }`}
       >
-        <div className="w-full h-full bg-black overflow-hidden shadow-2xl relative">
+        <div className="w-full h-full bg-[#102a43] overflow-hidden shadow-2xl relative">
           {isOpen && (
             <iframe
               src={url}

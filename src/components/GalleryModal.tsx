@@ -39,7 +39,7 @@ export default function GalleryModal({ isOpen, images, onClose }: GalleryModalPr
     <div className="fixed inset-0 z-[9999] bg-[#fff]/50 backdrop-blur-md flex flex-col items-center justify-center">
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 text-white/50 hover:text-white z-[100] p-2 bg-black/60 hover:bg-black/80 rounded-full"
+        className="absolute top-6 right-6 text-white/50 hover:text-white z-[100] p-2 bg-[#102a43]/60 hover:bg-[#102a43]/80 rounded-full"
       >
         <X size={24} />
       </button>
@@ -73,20 +73,20 @@ export default function GalleryModal({ isOpen, images, onClose }: GalleryModalPr
         
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className="absolute left-8 top-1/2 -translate-y-1/2 bg-black/60 text-white p-5 rounded-full z-50 hover:bg-black/80 hidden md:flex"
+          className="absolute left-8 top-1/2 -translate-y-1/2 bg-[#102a43]/60 text-white p-5 rounded-full z-50 hover:bg-[#102a43]/80 hidden md:flex"
         >
           <ChevronLeft size={24} />
         </button>
         
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="absolute right-8 top-1/2 -translate-y-1/2 bg-black/60 text-white p-5 rounded-full z-50 hover:bg-black/80 hidden md:flex"
+          className="absolute right-8 top-1/2 -translate-y-1/2 bg-[#102a43]/60 text-white p-5 rounded-full z-50 hover:bg-[#102a43]/80 hidden md:flex"
         >
           <ChevronRight size={24} />
         </button>
       </div>
       
-      <div className="absolute bottom-10 px-5 py-2 bg-black/60 text-white rounded-xl text-xs font-bold tracking-widest border border-white/10">
+      <div className="absolute bottom-10 px-5 py-2 bg-[#102a43]/60 text-white rounded-xl text-xs font-bold tracking-widest border border-white/10">
         {activeIndex + 1} / {images.length}
       </div>
     </div>
