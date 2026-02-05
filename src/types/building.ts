@@ -8,6 +8,12 @@ export interface AmenityTour extends Tour {
   position: [number, number];
 }
 
+export interface FloorConfig {
+  url: string;
+  width: number;
+  height: number;
+}
+
 export interface Unit {
   id: string;
   title: string;
@@ -23,20 +29,16 @@ export interface Unit {
   gallery: string[];
   floorId: string;
   floorName: string;
-  virtualTour?: Tour; // New: Unit-specific virtual tour
+  virtualTour?: Tour;
   [key: string]: any; 
 }
 
 export interface Floor {
   id: string;
   name: string;
-  config: {
-    url: string;
-    width: number;
-    height: number;
-  };
+  config: FloorConfig; // Use the interface here
   units: Unit[];
-  amenityTours?: AmenityTour[]; // Renamed from vrTours
+  amenityTours?: AmenityTour[];
   polygon: [number, number][];
 }
 

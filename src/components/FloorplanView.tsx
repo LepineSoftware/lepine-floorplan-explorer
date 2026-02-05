@@ -3,7 +3,6 @@ import {
   ChevronUp,
   Map as MapIcon,
   LayoutGrid,
-  Heart,
   ArrowLeft,
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
@@ -23,9 +22,6 @@ export default function FloorplanView() {
     selectUnit,
     viewMode,
     setViewMode,
-    gridTab,
-    setGridTab,
-    favorites,
     floors,
     selectFloor,
     goBackToBuilding,
@@ -36,7 +32,12 @@ export default function FloorplanView() {
   const [isFloorMenuOpen, setIsFloorMenuOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
+  
+  // Initialize as false so the sidebar is collapsed by default
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false);
+  
+  // State to trigger map recentering after sidebar transitions
+  const [recenterTrigger, setRecenterTrigger] = useState(0);
 
   useEffect(() => {
     setIsMobileSidebarOpen(false);
@@ -50,14 +51,31 @@ export default function FloorplanView() {
 
   if (!activeFloor) return null;
 
+  // Determine if the current floor has any units to display
   const hasUnits = activeFloor.units && activeFloor.units.length > 0;
+
+  // Toggles the sidebar and triggers a map recenter after the animation completes
+  const toggleSidebar = useCallback(() => {
+    setIsDesktopSidebarOpen((prev) => !prev);
+    setTimeout(() => {
+      setRecenterTrigger((prev) => prev + 1);
+    }, 500); // Matches the 500ms transition duration in UnitSidebar
+  }, []);
 
   const handleUnitSelect = useCallback(
     (unitId: string) => {
+      const wasClosed = !isDesktopSidebarOpen;
       selectUnit(unitId);
       setIsDesktopSidebarOpen(true);
+      
+      // If the sidebar was closed, trigger recenter after it finishes opening
+      if (wasClosed) {
+        setTimeout(() => {
+          setRecenterTrigger((prev) => prev + 1);
+        }, 500);
+      }
     },
-    [selectUnit],
+    [selectUnit, isDesktopSidebarOpen],
   );
 
   return (
@@ -102,6 +120,7 @@ export default function FloorplanView() {
                 activeUnitId={activeUnit?.id}
                 onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
                 onTourSelect={setActiveTour}
+                recenterTrigger={recenterTrigger} // Pass the trigger to UnitMap
               />
             ) : (
               <div className="p-4 lg:p-8">
@@ -110,7 +129,6 @@ export default function FloorplanView() {
             )}
           </div>
 
-          {/* Restored Floor Selection Menu */}
           {viewMode === "map" && (
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center pointer-events-none w-full px-4">
               <div
@@ -154,11 +172,12 @@ export default function FloorplanView() {
         </div>
       </div>
 
+      {/* Conditionally render sidebar and drawer only if the floor has units */}
       {hasUnits && (
         <>
           <UnitSidebar
             isOpen={isDesktopSidebarOpen}
-            onToggle={() => setIsDesktopSidebarOpen(!isDesktopSidebarOpen)}
+            onToggle={toggleSidebar}
             onOpenGallery={() => setIsGalleryOpen(true)}
           />
 

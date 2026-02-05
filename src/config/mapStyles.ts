@@ -1,6 +1,6 @@
 export const PRIMARY_FILL = "#102a43";
 export const SECONDARY_FILL = "#94a3b8";
-export const BACKGROUND_FILL = "#f8fafc";
+export const BACKGROUND_FILL = "#d8d9d8";
 
 export const POLYGON_STYLES = {
   inactive: {
