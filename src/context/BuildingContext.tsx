@@ -7,7 +7,7 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { BuildingData, Floor, Unit, Filters } from "../types/building";
+import { BuildingData, Floor, Unit, Filters, Tour } from "../types/building";
 
 interface BuildingContextType {
   data: BuildingData | null;
@@ -30,8 +30,8 @@ interface BuildingContextType {
   toggleFavorite: (id: string) => void;
   clearFavorites: () => void;
   goBackToBuilding: () => void;
-  activeTour: any;
-  setActiveTour: (tour: any) => void;
+  activeTour: Tour | null;
+  setActiveTour: (tour: Tour | null) => void;
 }
 
 const BuildingContext = createContext<BuildingContextType | undefined>(undefined);
@@ -45,7 +45,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [viewMode, setViewMode] = useState("map");
   const [gridTab, setGridTab] = useState("all");
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [activeTour, setActiveTour] = useState<any>(null);
+  const [activeTour, setActiveTour] = useState<Tour | null>(null);
 
   const [filters, setFilters] = useState<Filters>({
     beds: "All",
@@ -119,7 +119,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
       const matchSqft =
         unit.sqft >= filters.minSqft && unit.sqft <= filters.maxSqft;
 
-      // Fixes TS7053 indexing error
       const matchFeatures = filters.features.every((f) => unit[f as keyof Unit] === true);
 
       return matchBeds && matchBaths && matchStatus && matchFeatures && matchSqft;
@@ -129,7 +128,6 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const selectFloor = useCallback((id: string) => {
     setActiveFloorId(id);
     const floor = floors.find((f) => f.id === id);
-    // Automatically select the first unit of the floor
     if (floor && floor.units.length > 0) {
       setActiveUnitId(floor.units[0].id);
     }

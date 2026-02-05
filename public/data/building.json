@@ -20,10 +20,10 @@
           "height": 1146,
           "url": "/assets/floorplan.svg"
         },
-        "vrTours": [
+        "amenityTours": [
           {
-            "id": "vt110",
-            "label": "Suite 110",
+            "id": "at110",
+            "label": "Amenity Tour",
             "position": [435, 1250],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
@@ -50,6 +50,10 @@
               "https://images.unsplash.com/photo-1484154218962-a197022b5858",
               "https://images.unsplash.com/photo-1522770179533-24471fcdba45"
             ],
+            "virtualTour": {
+              "label": "Suite 101 Virtual Tour",
+              "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+            },
             "pdf": "/assets/floorplan.pdf",
             "property": "Residential",
             "onHoldExpires": null,
@@ -148,10 +152,10 @@
           "height": 1146,
           "url": "/assets/floorplan.svg"
         },
-        "vrTours": [
+        "amenityTours": [
           {
-            "id": "vt210",
-            "label": "Suite 210",
+            "id": "at210",
+            "label": "Amenity Tour",
             "position": [435, 1250],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
@@ -243,10 +247,10 @@
           "height": 1146,
           "url": "/assets/floorplan.svg"
         },
-        "vrTours": [
+        "amenityTours": [
           {
-            "id": "vt310",
-            "label": "Suite 310",
+            "id": "at310",
+            "label": "Amenity Tour",
             "position": [435, 1250],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
@@ -287,6 +291,10 @@
               [844, 405],
               [577, 405]
             ],
+            "virtualTour": {
+              "label": "Suite 301 Virtual Tour",
+              "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
+            },
             "description": "Premium corner unit on the 3rd floor."
           }
         ]
@@ -305,10 +313,10 @@
           "height": 1146,
           "url": "/assets/floorplan.svg"
         },
-        "vrTours": [
+        "amenityTours": [
           {
-            "id": "vt410",
-            "label": "Suite 410",
+            "id": "at410",
+            "label": "Amenity Tour",
             "position": [435, 1250],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
@@ -366,10 +374,10 @@
           "height": 1146,
           "url": "/assets/floorplan.svg"
         },
-        "vrTours": [
+        "amenityTours": [
           {
-            "id": "vt510",
-            "label": "Suite 510",
+            "id": "at510",
+            "label": "Amenity Tour",
             "position": [435, 1250],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
@@ -428,10 +436,10 @@
           "height": 1146,
           "url": "/assets/floorplan.svg"
         },
-        "vrTours": [
+        "amenityTours": [
           {
-            "id": "vt610",
-            "label": "Suite 610",
+            "id": "at610",
+            "label": "Amenity Tour",
             "position": [435, 1250],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }
@@ -497,10 +505,10 @@
           "height": 1146,
           "url": "/assets/floorplan.svg"
         },
-        "vrTours": [
+        "amenityTours": [
           {
-            "id": "vt710",
-            "label": "Suite 710",
+            "id": "at710",
+            "label": "Amenity Tour",
             "position": [435, 1250],
             "url": "https://www.solutioneers.dev/tours/1804/210/index.html"
           }

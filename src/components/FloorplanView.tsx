@@ -12,9 +12,8 @@ import UnitGrid from "./UnitGrid";
 import UnitFilters from "./UnitFilters";
 import UnitSidebar from "./UnitSidebar";
 import UnitDrawer from "./UnitDrawer";
-import VirtualTourEmbed from "./VirtualTourEmbed";
+import TourModal from "./TourModal";
 import GalleryModal from "./GalleryModal";
-// 1. Import the Unit type to resolve implicit 'any' errors
 import { Unit } from "../types/building";
 
 export default function FloorplanView() {
@@ -51,7 +50,6 @@ export default function FloorplanView() {
 
   if (!activeFloor) return null;
 
-  // 2. Type the 'unitId' parameter as a string to resolve error 7006
   const handleUnitSelect = useCallback(
     (unitId: string) => {
       selectUnit(unitId);
@@ -77,33 +75,15 @@ export default function FloorplanView() {
                   onClick={() => setViewMode("map")}
                   className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all ${viewMode === "map" ? "bg-white text-[#102a43] shadow-sm" : "text-slate-400"}`}
                 >
-                  <MapIcon size={14} />{" "}
-                  <span className="hidden sm:inline">Map</span>
+                  <MapIcon size={14} /> Map
                 </button>
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-[10px] lg:text-xs font-bold transition-all ${viewMode === "grid" ? "bg-white text-[#102a43] shadow-sm" : "text-slate-400"}`}
                 >
-                  <LayoutGrid size={14} />{" "}
-                  <span className="hidden sm:inline">List</span>
+                  <LayoutGrid size={14} /> List
                 </button>
               </div>
-              {viewMode === "grid" && (
-                <button
-                  onClick={() =>
-                    setGridTab(gridTab === "all" ? "favorites" : "all")
-                  }
-                  className={`p-2.5 rounded-xl flex items-center gap-2 transition-all ${gridTab === "favorites" ? "bg-rose-50 text-rose-600" : "bg-slate-100 text-slate-400"}`}
-                >
-                  <Heart
-                    size={16}
-                    fill={gridTab === "favorites" ? "currentColor" : "none"}
-                  />
-                  <span className="text-[10px] font-bold hidden sm:inline">
-                    {favorites.length}
-                  </span>
-                </button>
-              )}
             </div>
           </div>
         </div>
@@ -116,9 +96,8 @@ export default function FloorplanView() {
               <UnitMap
                 config={activeFloor.config}
                 units={activeFloor.units}
-                vrTours={activeFloor.vrTours || []}
+                amenityTours={activeFloor.amenityTours || []}
                 activeUnitId={activeUnit?.id}
-                // 3. Type the 'unit' parameter as Unit to resolve error 7006
                 onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
                 onTourSelect={setActiveTour}
               />
@@ -129,10 +108,15 @@ export default function FloorplanView() {
             )}
           </div>
 
+          {/* Restored Floor Selection Menu */}
           {viewMode === "map" && (
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center pointer-events-none w-full px-4">
               <div
-                className={`transition-all duration-300 flex flex-col gap-1 bg-white p-1.5 rounded-2xl shadow-xl border border-slate-200 min-w-[160px] overflow-hidden pointer-events-auto ${isFloorMenuOpen ? "opacity-100 translate-y-0 max-h-[40vh] overflow-y-auto mb-3" : "opacity-0 translate-y-4 max-h-0 mb-0"}`}
+                className={`transition-all duration-300 flex flex-col gap-1 bg-white p-1.5 rounded-2xl shadow-xl border border-slate-200 min-w-[160px] overflow-hidden pointer-events-auto ${
+                  isFloorMenuOpen
+                    ? "opacity-100 translate-y-0 max-h-[40vh] overflow-y-auto mb-3"
+                    : "opacity-0 translate-y-4 max-h-0 mb-0"
+                }`}
               >
                 {floors.map((floor) => (
                   <button
@@ -141,7 +125,11 @@ export default function FloorplanView() {
                       selectFloor(floor.id);
                       setIsFloorMenuOpen(false);
                     }}
-                    className={`px-4 py-2.5 rounded-xl text-left text-sm font-medium ${activeFloor.id === floor.id ? "bg-[#102a43] text-white" : "text-slate-600 hover:bg-slate-100"}`}
+                    className={`px-4 py-2.5 rounded-xl text-left text-sm font-medium ${
+                      activeFloor.id === floor.id
+                        ? "bg-[#102a43] text-white"
+                        : "text-slate-600 hover:bg-slate-100"
+                    }`}
                   >
                     {floor.name}
                   </button>
@@ -154,7 +142,9 @@ export default function FloorplanView() {
                 <span className="text-sm font-bold">{activeFloor.name}</span>
                 <ChevronUp
                   size={18}
-                  className={`transition-transform duration-300 ${isFloorMenuOpen ? "rotate-180" : ""}`}
+                  className={`transition-transform duration-300 ${
+                    isFloorMenuOpen ? "rotate-180" : ""
+                  }`}
                 />
               </button>
             </div>
@@ -174,7 +164,7 @@ export default function FloorplanView() {
         onOpenGallery={() => setIsGalleryOpen(true)}
       />
 
-      <VirtualTourEmbed
+      <TourModal
         isOpen={!!activeTour}
         url={activeTour?.url}
         label={activeTour?.label}

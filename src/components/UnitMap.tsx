@@ -3,14 +3,14 @@ import { MapContainer, ImageOverlay } from "react-leaflet";
 import L from "leaflet";
 import MapController from "./MapController";
 import UnitPolygon from "./UnitPolygon";
-import VirtualTourPolygon from "./VirtualTourPolygon";
+// Use the renamed marker component
+import AmenityTourMarker from "./AmenityTourMarker"; 
 import RecenterControl from "./RecenterControl";
 import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
-// 1. Import your custom types
-import { Unit, VRTour } from "../types/building";
+// Import AmenityTour and Tour types
+import { Unit, AmenityTour, Tour } from "../types/building";
 import "leaflet/dist/leaflet.css";
 
-// 2. Define an interface for the props to resolve errors 7031
 interface UnitMapProps {
   config: {
     height: number;
@@ -18,21 +18,22 @@ interface UnitMapProps {
     url: string;
   };
   units: Unit[];
-  vrTours: VRTour[];
+  // Prop renamed to match data structure
+  amenityTours: AmenityTour[];
   activeUnitId: string | undefined;
   onSelect: (unit: Unit) => void;
-  onTourSelect: (tour: VRTour) => void;
+  // Handler uses the base Tour type for versatility
+  onTourSelect: (tour: Tour) => void;
 }
 
 export default function UnitMap({
   config,
   units,
-  vrTours,
+  amenityTours,
   activeUnitId,
   onSelect,
   onTourSelect,
 }: UnitMapProps) {
-  // 3. Explicitly type bounds as LatLngBoundsExpression to resolve error 2322
   const bounds: L.LatLngBoundsExpression = [
     [0, 0],
     [config.height, config.width],
@@ -58,7 +59,6 @@ export default function UnitMap({
         imageWidth={config.width}
         imageHeight={config.height}
       />
-      {/* 4. Type the .map parameters to resolve errors 7006 */}
       {units.map((unit: Unit) => (
         <UnitPolygon
           key={unit.id}
@@ -67,8 +67,9 @@ export default function UnitMap({
           onSelect={onSelect}
         />
       ))}
-      {vrTours.map((tour: VRTour) => (
-        <VirtualTourPolygon 
+      {/* Render Amenity Tour Markers */}
+      {amenityTours.map((tour: AmenityTour) => (
+        <AmenityTourMarker 
           key={tour.id} 
           tour={tour} 
           onSelect={onTourSelect} 

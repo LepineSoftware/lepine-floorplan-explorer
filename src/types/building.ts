@@ -1,3 +1,13 @@
+export interface Tour {
+  url: string;
+  label: string;
+}
+
+export interface AmenityTour extends Tour {
+  id: string;
+  position: [number, number];
+}
+
 export interface Unit {
   id: string;
   title: string;
@@ -13,16 +23,8 @@ export interface Unit {
   gallery: string[];
   floorId: string;
   floorName: string;
-  // Index signature to allow dynamic feature filtering and resolve TS7053
+  virtualTour?: Tour; // New: Unit-specific virtual tour
   [key: string]: any; 
-}
-
-// Exported to resolve TS2305 in UnitMap and VirtualTourPolygon
-export interface VRTour {
-  id: string;
-  label: string;
-  url: string;
-  position: [number, number];
 }
 
 export interface Floor {
@@ -34,7 +36,7 @@ export interface Floor {
     height: number;
   };
   units: Unit[];
-  vrTours?: VRTour[];
+  amenityTours?: AmenityTour[]; // Renamed from vrTours
   polygon: [number, number][];
 }
 

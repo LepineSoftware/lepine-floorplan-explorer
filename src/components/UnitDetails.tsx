@@ -17,25 +17,22 @@ import {
   Wind,
   Sparkles,
   X,
+  Eye,
   LucideIcon
 } from "lucide-react";
 import { useBuilding } from "../context/BuildingContext";
-// 1. Import the Unit type for data consistency
 import { Unit } from "../types/building";
 
-// 2. Define an interface for the component props to resolve errors 7031
 interface UnitDetailsProps {
   onOpenGallery: () => void;
-  onClose?: () => void; // Optional if not used on all platforms
+  onClose?: () => void;
 }
 
-// 3. Define an interface for the icon configuration
 interface AttributeIconConfig {
   label: string;
   icon: LucideIcon;
 }
 
-// 4. Use a Record type to allow string indexing and resolve error 7053
 const attributeIcons: Record<string, AttributeIconConfig> = {
   sqft: { label: "sqft", icon: Maximize },
   numOfBeds: { label: "Beds", icon: Bed },
@@ -53,7 +50,7 @@ const attributeIcons: Record<string, AttributeIconConfig> = {
 };
 
 export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps) {
-  const { activeUnit, favorites, toggleFavorite } = useBuilding();
+  const { activeUnit, favorites, toggleFavorite, setActiveTour } = useBuilding();
   const [isPulsing, setIsPulsing] = useState(false);
 
   if (!activeUnit) return null;
@@ -117,6 +114,26 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
         )}
       </div>
 
+      <div className="flex flex-col gap-3 mb-8">
+        <a
+          href={activeUnit.pdf}
+          target="_blank"
+          rel="noreferrer"
+          className="w-full flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold py-4 rounded-xl hover:bg-[#1b3a5a] shadow-lg transition-all"
+        >
+          <Download size={18} /> Download Floorplan
+        </a>
+
+        {activeUnit.virtualTour && (
+          <button
+            onClick={() => setActiveTour(activeUnit.virtualTour || null)}
+            className="w-full flex items-center justify-center gap-2 bg-white text-[#102a43] border-2 border-[#102a43] font-semibold py-4 rounded-xl hover:bg-slate-50 transition-all"
+          >
+            <Eye size={18} /> Take Virtual Tour
+          </button>
+        )}
+      </div>
+
       <div className="space-y-6 mb-8">
         <div className="flex flex-wrap justify-between gap-4">
           {["sqft", "numOfBeds", "numOfBaths"].map((key) => {
@@ -160,15 +177,6 @@ export default function UnitDetails({ onOpenGallery, onClose }: UnitDetailsProps
           {activeUnit.description}
         </p>
       </div>
-
-      <a
-        href={activeUnit.pdf}
-        target="_blank"
-        rel="noreferrer"
-        className="w-full flex items-center justify-center gap-2 bg-[#102a43] text-white font-semibold py-4 rounded-xl hover:bg-[#1b3a5a] shadow-lg transition-all"
-      >
-        <Download size={18} /> Download Floorplan
-      </a>
     </div>
   );
 }
