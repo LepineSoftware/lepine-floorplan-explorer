@@ -18,7 +18,7 @@ export default function UnitSidebar({
 
   return (
     <div
-      className={`hidden lg:flex flex-col h-full z-20 transition-all duration-500 relative ${
+      className={`hidden lg:flex flex-col h-full z-1002 transition-all duration-500 relative ${
         isOpen ? "w-[420px]" : "w-0"
       }`}
     >
