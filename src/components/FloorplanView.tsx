@@ -33,10 +33,7 @@ export default function FloorplanView() {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   
-  // Initialize as false so the sidebar is collapsed by default
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false);
-  
-  // State to trigger map recentering after sidebar transitions
   const [recenterTrigger, setRecenterTrigger] = useState(0);
 
   useEffect(() => {
@@ -51,24 +48,21 @@ export default function FloorplanView() {
 
   if (!activeFloor) return null;
 
-  // Determine if the current floor has any units to display
   const hasUnits = activeFloor.units && activeFloor.units.length > 0;
 
-  // Toggles the sidebar and triggers a map recenter after the animation completes
   const toggleSidebar = useCallback(() => {
     setIsDesktopSidebarOpen((prev) => !prev);
     setTimeout(() => {
       setRecenterTrigger((prev) => prev + 1);
-    }, 500); // Matches the 500ms transition duration in UnitSidebar
+    }, 500);
   }, []);
 
   const handleUnitSelect = useCallback(
-    (unitId: string) => {
+    (id: string) => { // Renamed from unitId
       const wasClosed = !isDesktopSidebarOpen;
-      selectUnit(unitId);
+      selectUnit(id);
       setIsDesktopSidebarOpen(true);
       
-      // If the sidebar was closed, trigger recenter after it finishes opening
       if (wasClosed) {
         setTimeout(() => {
           setRecenterTrigger((prev) => prev + 1);
@@ -117,10 +111,10 @@ export default function FloorplanView() {
                 config={activeFloor.config}
                 units={activeFloor.units}
                 amenityTours={activeFloor.amenityTours || []}
-                activeUnitId={activeUnit?.id}
+                activeId={activeUnit?.id} // Updated prop name
                 onSelect={(unit: Unit) => handleUnitSelect(unit.id)}
                 onTourSelect={setActiveTour}
-                recenterTrigger={recenterTrigger} // Pass the trigger to UnitMap
+                recenterTrigger={recenterTrigger}
               />
             ) : (
               <div className="p-4 lg:p-8">
@@ -172,7 +166,6 @@ export default function FloorplanView() {
         </div>
       </div>
 
-      {/* Conditionally render sidebar and drawer only if the floor has units */}
       {hasUnits && (
         <>
           <UnitSidebar
@@ -180,7 +173,6 @@ export default function FloorplanView() {
             onToggle={toggleSidebar}
             onOpenGallery={() => setIsGalleryOpen(true)}
           />
-
           <UnitDrawer
             isOpen={isMobileSidebarOpen}
             onClose={() => setIsMobileSidebarOpen(false)}

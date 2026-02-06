@@ -9,7 +9,6 @@ import { MAP_VIEW_SETTINGS } from "../config/viewConfigs";
 import { Unit, AmenityTour, Tour, FloorConfig } from "../types/building";
 import "leaflet/dist/leaflet.css";
 
-// 1. Import Geoman JS and CSS
 import "@geoman-io/leaflet-geoman-free";
 import "@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css";
 
@@ -17,7 +16,7 @@ interface UnitMapProps {
   config: FloorConfig;
   units: Unit[];
   amenityTours: AmenityTour[];
-  activeUnitId: string | undefined;
+  activeId: string | undefined; // Prop renamed for consistency
   onSelect: (unit: Unit) => void;
   onTourSelect: (tour: Tour) => void;
   recenterTrigger?: number;
@@ -37,13 +36,8 @@ function AutoRecenter({ trigger, bounds, padding }: { trigger: number; bounds: L
 }
 
 const formatCoordinates = (latLngs: any[]): number[][] => {
-  // Leaflet polygons usually return an array of arrays (rings)
-  // We take the first ring (outer boundary)
   const ring = Array.isArray(latLngs[0]) ? latLngs[0] : latLngs;
-  
   return ring.map((pt: any) => {
-    // Round to integers for cleaner JSON (pixel coordinates)
-    // Map lng to x, lat to y
     return [Math.round(pt.lng), Math.round(pt.lat)];
   });
 };
@@ -76,13 +70,8 @@ const DebugControls = () => {
 
     const logCoords = (layer: any, action: string) => {
       if (layer.getLatLngs) {
-        // 1. Get raw Leaflet LatLngs
         const latLngs = layer.getLatLngs();
-        
-        // 2. Format to [[x, y], [x, y]]
         const formattedPoints = formatCoordinates(latLngs);
-        
-        // 3. Log specifically for your JSON file
         console.log(`%c[${action}] JSON Format:`, "color: #00dbb5; font-weight: bold;");
         console.log(`"polygon": ${JSON.stringify(formattedPoints, null, 2)},`);
       }
@@ -112,7 +101,7 @@ export default function UnitMap({
   config,
   units,
   amenityTours,
-  activeUnitId,
+  activeId, // Renamed from activeUnitId
   onSelect,
   onTourSelect,
   recenterTrigger = 0,
@@ -136,12 +125,9 @@ export default function UnitMap({
         markerZoomAnimation={false}
         {...settings}
       >
-        {/* 3. Add the DebugControls component inside the MapContainer */}
         <DebugControls />
-        
         <AutoRecenter trigger={recenterTrigger} bounds={bounds} padding={settings.padding} />
         <ImageOverlay url={config.url} bounds={bounds} />
-        
         <MapController
           mode="floorplan"
           bounds={bounds}
@@ -153,7 +139,7 @@ export default function UnitMap({
           <UnitPolygon
             key={unit.id}
             unit={unit}
-            isActive={activeUnitId === unit.id}
+            isActive={activeId === unit.id} // Updated logic
             onSelect={onSelect}
           />
         ))}

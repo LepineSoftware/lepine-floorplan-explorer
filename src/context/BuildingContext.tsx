@@ -26,7 +26,7 @@ interface BuildingContextType {
   setGridTab: (tab: string) => void;
   setViewMode: (mode: string) => void;
   selectFloor: (id: string) => void;
-  selectUnit: (unitId: string) => void;
+  selectUnit: (id: string) => void;
   toggleFavorite: (id: string) => void;
   clearFavorites: () => void;
   goBackToBuilding: () => void;
@@ -41,7 +41,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeFloorId, setActiveFloorId] = useState<string | null>(null);
-  const [activeUnitId, setActiveUnitId] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<string | null>(null); // Renamed from activeUnitId
   const [viewMode, setViewMode] = useState("map");
   const [gridTab, setGridTab] = useState("all");
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -99,8 +99,8 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
   );
 
   const activeUnit = useMemo(
-    () => allUnits.find((u) => u.id === activeUnitId) || null,
-    [allUnits, activeUnitId],
+    () => allUnits.find((u) => u.id === activeId) || null,
+    [allUnits, activeId],
   );
 
   const filteredUnits = useMemo(() => {
@@ -129,16 +129,16 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
     setActiveFloorId(id);
     const floor = floors.find((f) => f.id === id);
     if (floor && floor.units.length > 0) {
-      setActiveUnitId(floor.units[0].id);
+      setActiveId(floor.units[0].id);
     }
     setViewMode("map");
   }, [floors]);
 
-  const handleUnitSelect = useCallback((unitId: string) => {
-    const unitData = allUnits.find((u) => u.id === unitId);
+  const handleUnitSelect = useCallback((id: string) => { // Parameter renamed for consistency
+    const unitData = allUnits.find((u) => u.id === id);
     if (unitData) {
       setActiveFloorId(unitData.floorId);
-      setActiveUnitId(unitId);
+      setActiveId(id);
     }
   }, [allUnits]);
 
@@ -152,7 +152,7 @@ export function BuildingProvider({ children }: { children: ReactNode }) {
 
   const goBackToBuilding = useCallback(() => {
     setActiveFloorId(null);
-    setActiveUnitId(null);
+    setActiveId(null);
   }, []);
 
   const value = useMemo(

@@ -64,8 +64,7 @@
         ],
         "units": [
           {
-            "id": 201,
-            "unitId": "201",
+            "id": "201",
             "title": "Unit 201",
             "type": "Corner Suite",
             "model": "2 Bed + Office + Balcony",
@@ -105,8 +104,7 @@
             "description": "This expansive 2-bedroom + office apartment offers 1,132 sq. ft. of thoughtfully designed, open-concept living, complete with a private balcony. The versatile office provides the perfect space for working from home or a quiet retreat. Premium finishes include multilayered hardwood flooring, granite countertops, natural wood cabinetry, and soaring 9-foot ceilings. Solid concrete construction ensures superior soundproofing, while floor-to-ceiling windows flood the space with natural light. Enjoy modern comforts such as individual temperature control and high-efficiency climate systems for year-round comfort."
           },
           {
-            "id": 202,
-            "unitId": "202",
+            "id": "202",
             "title": "Unit 202",
             "type": "Standard Suite",
             "model": "The Ottawa",
@@ -138,8 +136,7 @@
             "description": "Modern open-concept living space."
           },
           {
-            "id": 206,
-            "unitId": "206",
+            "id": "206",
             "title": "Unit 206",
             "type": "Studio",
             "model": "The Rideau",
@@ -203,8 +200,7 @@
         ],
         "units": [
           {
-            "id": 301,
-            "unitId": "301",
+            "id": "301",
             "title": "Unit 301",
             "type": "Corner Suite",
             "model": "The Gatineau",
@@ -280,8 +276,7 @@
         ],
         "units": [
           {
-            "id": 402,
-            "unitId": "402",
+            "id": "402",
             "title": "Unit 402",
             "type": "Standard Suite",
             "model": "The Ottawa",
@@ -347,8 +342,7 @@
         ],
         "units": [
           {
-            "id": 502,
-            "unitId": "502",
+            "id": "502",
             "title": "Unit 502",
             "type": "Standard Suite",
             "model": "The Ottawa",
