@@ -36,7 +36,7 @@ const UnitPolygon = memo<UnitPolygonProps>(({ unit, isActive, onSelect }) => {
       }}
     >
       <Tooltip permanent direction="center" className="polygon-label">
-        {/* {unit.title} */}
+        {unit.id}
       </Tooltip>
     </Polygon>
   );
